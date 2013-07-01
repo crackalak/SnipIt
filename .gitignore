@@ -1,0 +1,10 @@
+*.user
+*.suo
+*.sln.cache
+Debug/
+Output/
+[oO]bj/
+*.xap
+_ReSharper.*
+TestResults/
+Published/
