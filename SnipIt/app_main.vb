@@ -6,6 +6,10 @@ Public Class app_main
     Dim autoclear As Boolean
     Dim debugmode As Boolean
 
+    'used to hold the position of the last printed page
+    'of the image when it is bigger than the page size
+    Dim lastImagePrintPos As Point
+
     Private Sub cmdnew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdnew.Click
 
         'start capture
@@ -190,7 +194,14 @@ Public Class app_main
 
                     End If
 
+                    'make sure the held values are set to zero before printing
+                    lastImagePrintPos.X = 0
+                    lastImagePrintPos.Y = 0
+
+                    'make sure that dialog boxes can be seen while printing (e.g. Win2PDF)
+                    Me.TopMost = False
                     .Print()
+                    Me.TopMost = True
 
                     autoclear_check()
 
@@ -208,7 +219,53 @@ Public Class app_main
 
     Private Sub PrintDocument1_PrintPage(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
 
-        e.Graphics.DrawImage(PictureBox1.Image, New Point(10, 10))
+        'margin around the printed image
+        Dim imageMargin As Integer = 10
+
+        'take the left and right image margin off the pageWidth
+        'convert the value from hundreds of an inch to pixels
+        Dim pageWidth As Integer = CInt((e.PageBounds.Width - imageMargin * 2) / 100 * PictureBox1.Image.HorizontalResolution)
+        Dim pageHeight As Integer = CInt((e.PageBounds.Height - imageMargin * 2) / 100 * PictureBox1.Image.VerticalResolution)
+
+        'check if the image is bigger than can fit on the page
+        If pageWidth < PictureBox1.Image.Width Or pageHeight < PictureBox1.Image.Height Then
+
+            'get a rectangle indicating the portion of the image we want to print
+            Dim imageRect As New Rectangle(lastImagePrintPos, New Size(pageWidth, pageHeight))
+
+            'print the required portion of the image
+            e.Graphics.DrawImage(PictureBox1.Image, e.PageBounds.X + imageMargin, e.PageBounds.Y + imageMargin, imageRect, GraphicsUnit.Pixel)
+
+            'move to the next page to the right
+            lastImagePrintPos.X += pageWidth
+
+            'if the image width is less than printed width
+            If PictureBox1.Image.Width < lastImagePrintPos.X Then
+
+                'if the height of the image is more than the currently printed height
+                If PictureBox1.Image.Height > lastImagePrintPos.Y + pageHeight Then
+                    'reset the x value to zero and increment the y value to print the next row of pages
+                    lastImagePrintPos.X = 0
+                    lastImagePrintPos.Y += pageHeight
+                    e.HasMorePages = True
+                Else
+                    'the whole width and height of the image have been printed
+                    'stop the printing
+                    lastImagePrintPos.X = 0
+                    lastImagePrintPos.Y = 0
+                    e.HasMorePages = False
+                End If
+
+            Else
+
+                e.HasMorePages = True
+
+            End If
+
+        Else
+            'print the whole image on one page
+            e.Graphics.DrawImage(PictureBox1.Image, New Point(imageMargin, imageMargin))
+        End If
 
     End Sub
 
