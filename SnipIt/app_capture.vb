@@ -167,106 +167,110 @@
                 If Me.mSelPanel.Size.Width > 0 And Me.mSelPanel.Size.Height > 0 Then
                     'Create a bitmap and graphics object for capturing the selection area
 
-                    Dim bmp As New Bitmap(Me.mSelPanel.Size.Width, Me.mSelPanel.Size.Height)
+                    Using bmp As New Bitmap(Me.mSelPanel.Size.Width, Me.mSelPanel.Size.Height)
+                        Using gfx As Graphics = System.Drawing.Graphics.FromImage(bmp)
 
-                    Dim gfx As Graphics = System.Drawing.Graphics.FromImage(bmp)
+                            'point for correct position of panel with multiple screens
+                            Dim panelpoint As New Point(Me.mSelPanel.Location.X + Me.Bounds.X, Me.mSelPanel.Location.Y + Me.Bounds.Y)
 
-                    'point for correct position of panel with multiple screens
-                    Dim panelpoint As New Point(Me.mSelPanel.Location.X + Me.Bounds.X, Me.mSelPanel.Location.Y + Me.Bounds.Y)
+                            'Make sure this application will not be visible
+                            Me.Opacity = 0
 
-                    'Make sure this application will not be visible
-                    Me.Opacity = 0
+                            'Copy the selection area to the screen, then clean up the graphics object
+                            gfx.CopyFromScreen(panelpoint, New Point(0, 0), Me.mSelPanel.Size, CopyPixelOperation.SourceCopy)
 
-                    'Copy the selection area to the screen, then clean up the graphics object
-                    gfx.CopyFromScreen(panelpoint, New Point(0, 0), Me.mSelPanel.Size, CopyPixelOperation.SourceCopy)
+                            'Reset the transparency of this application
+                            'Me.Opacity = Me.mOpacity
 
-                    gfx.Dispose()
+                            'if multisnip is true create new instance of main form
+                            'and use current snip to fill its picturebox
+                            Dim multiform As New app_main
 
-                    'Reset the transparency of this application
-                    'Me.Opacity = Me.mOpacity
+                            If multisnip = True Then
 
-                    'if multisnip is true create new instance of main form
-                    'and use current snip to fill its picturebox
-                    Dim multiform As New app_main
+                                With multiform
 
-                    If multisnip = True Then
+                                    .PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
 
-                        With multiform
+                                    'load picturebox with captured image
+                                    .PictureBox1.Image = Image.FromHbitmap(bmp.GetHbitmap)
+                                    .PictureBox1.Visible = True
 
-                            .PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+                                    'save a copy of the original image 
+                                    'to reset to if required after editing
+                                    .originalImage = Image.FromHbitmap(bmp.GetHbitmap)
 
-                            'load picturebox with captured image
-                            .PictureBox1.Image = Image.FromHbitmap(bmp.GetHbitmap)
-                            .PictureBox1.Visible = True
+                                    'change main form dimensions for new capture
+                                    .Height = .Height + .PictureBox1.Height + 5
+                                    .Width = .PictureBox1.Width + 12
 
-                            'change main form dimensions for new capture
-                            .Height = .Height + .PictureBox1.Height + 5
-                            .Width = .PictureBox1.Width + 12
+                                    'change panel container dimensions for border around piturebox
+                                    .Panel1.Width = .Width - 6
+                                    .Panel1.Height = .Height - 32
 
-                            'change panel container dimensions for border around piturebox
-                            .Panel1.Width = .Width - 6
-                            .Panel1.Height = .Height - 32
+                                    .Name = "multisnip"
 
-                            .Name = "multisnip"
+                                    'set position to top left of current snip
+                                    .StartPosition = Windows.Forms.FormStartPosition.Manual
+                                    .Location = panelpoint
 
-                            'set position to top left of current snip
-                            .StartPosition = Windows.Forms.FormStartPosition.Manual
-                            .Location = panelpoint
+                                End With
 
-                        End With
+                            Else
 
-                    Else
+                                With app_main
 
-                        With app_main
+                                    'load picturebox with captured image
+                                    .PictureBox1.Image = Image.FromHbitmap(bmp.GetHbitmap)
+                                    .PictureBox1.Visible = True
 
-                            'load picturebox with captured image
-                            .PictureBox1.Image = Image.FromHbitmap(bmp.GetHbitmap)
-                            .PictureBox1.Visible = True
+                                    'save a copy of the original image 
+                                    'to reset to if required after editing
+                                    .originalImage = Image.FromHbitmap(bmp.GetHbitmap)
 
-                            'change main form dimensions for new capture
-                            .Height = .Height + .PictureBox1.Height + 5
-                            .Width = .PictureBox1.Width + 12
+                                    'change main form dimensions for new capture
+                                    .Height = .Height + .PictureBox1.Height + 5
+                                    .Width = .PictureBox1.Width + 12
 
-                            'change panel container dimensions for border around piturebox
-                            .Panel1.Width = .Width - 6
-                            .Panel1.Height = .Height - 32
+                                    'change panel container dimensions for border around piturebox
+                                    .Panel1.Width = .Width - 6
+                                    .Panel1.Height = .Height - 32
 
-                            'set position to top left of current snip
-                            .Location = panelpoint
+                                    'set position to top left of current snip
+                                    .Location = panelpoint
 
-                        End With
+                                End With
 
-                    End If
+                            End If
 
-                    bmp.Dispose()
+                            'Remove the selection panel
+                            Me.Controls.Remove(Me.mSelPanel)
 
-                    'Remove the selection panel
-                    Me.Controls.Remove(Me.mSelPanel)
+                            'reset cursor to default
+                            Cursor = Cursors.Default
 
-                    'reset cursor to default
-                    Cursor = Cursors.Default
+                            Me.Hide()
 
-                    Me.Hide()
+                            If multisnip = True Then
 
-                    If multisnip = True Then
+                                'show as main snip
+                                app_main.Text = "SnipIt - Main"
 
-                        'Dim showform As Form
+                                'show each snip and set non main settings
+                                For Each showform As Form In My.Application.OpenForms
+                                    showform.Show()
+                                Next
+                                multiform.ShowInTaskbar = False
+                                multiform.cmdnew.Enabled = False
+                                multiform.Show()
 
-                        'show as main snip
-                        app_main.Text = "SnipIt - Main"
+                            Else
+                                multiform.Dispose()
+                                app_main.Show()
+                            End If
 
-                        'show each snip and set non main settings
-                        For Each showform As Form In My.Application.OpenForms
-                            showform.Show()
-                        Next
-                        multiform.ShowInTaskbar = False
-                        multiform.cmdnew.Enabled = False
-                        multiform.Show()
-
-                    Else
-                        multiform.Dispose()
-                        app_main.Show()
-                    End If
+                        End Using
+                    End Using
 
                     'Close the application
                     Me.Close()

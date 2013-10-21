@@ -6,9 +6,24 @@ Public Class app_main
     Dim autoclear As Boolean
     Dim debugmode As Boolean
 
+    Enum drawEnum
+        Line
+        Rect
+        Ellipse
+    End Enum
+
     'used to hold the position of the last printed page
     'of the image when it is bigger than the page size
     Dim lastImagePrintPos As Point
+
+    Dim previousMousePos As System.Nullable(Of Point)
+    Dim previousImage As Image
+
+    'store the original image to reset when required
+    Public originalImage As Image
+
+    Dim drawingPen As Pen
+    Dim drawingType As drawEnum
 
     Private Sub cmdnew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdnew.Click
 
@@ -122,6 +137,10 @@ Public Class app_main
             End Try
 
         End If
+
+    End Sub
+
+    Private Sub app_main_Activated(sender As Object, e As System.EventArgs) Handles Me.Activated
 
     End Sub
 
@@ -395,6 +414,10 @@ Public Class app_main
         PictureBox1.Invalidate()
         PictureBox1.Visible = False
 
+        If originalImage IsNot Nothing Then
+            originalImage.Dispose()
+        End If
+
     End Sub
 
     Private Sub app_main_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
@@ -414,6 +437,205 @@ Public Class app_main
             Next
 
         End If
+
+    End Sub
+
+    Private Sub PictureBox1_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles PictureBox1.MouseDown
+        If e.Button = Windows.Forms.MouseButtons.Left AndAlso NoToolStripMenuItem.Checked = False Then
+            previousMousePos = e.Location
+            'create a new clone of the image
+            previousImage = DirectCast(PictureBox1.Image.Clone, Image)
+            Me.Cursor = Cursors.Cross
+        End If
+    End Sub
+
+    Private Sub PictureBox1_MouseMove(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles PictureBox1.MouseMove
+
+        If PictureBox1.Image.Equals(Nothing) = False AndAlso previousMousePos.Equals(Nothing) = False Then
+
+            'set the image to the previous one on mousedown
+            'each time before drawing
+            PictureBox1.Image = DirectCast(previousImage.Clone, Image)
+
+            Using g As Graphics = Graphics.FromImage(PictureBox1.Image)
+                g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+
+                Select Case drawingType
+
+                    Case drawEnum.Line
+
+                        g.DrawLine(drawingPen, previousMousePos.Value, e.Location)
+
+                    Case drawEnum.Rect
+
+                        g.DrawRectangle(drawingPen, previousMousePos.Value.X, previousMousePos.Value.Y, e.X - previousMousePos.Value.X, e.Y - previousMousePos.Value.Y)
+
+                    Case drawEnum.Ellipse
+
+                        g.DrawEllipse(drawingPen, previousMousePos.Value.X, previousMousePos.Value.Y, e.X - previousMousePos.Value.X, e.Y - previousMousePos.Value.Y)
+
+                    Case Else
+
+                        MessageBox.Show("Not Supported!", "Drawing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        Exit Sub
+
+                End Select
+
+            End Using
+            PictureBox1.Invalidate()
+
+        End If
+
+    End Sub
+
+    Private Sub PictureBox1_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles PictureBox1.MouseUp
+        'cleanup
+        previousMousePos = Nothing
+        If previousImage IsNot Nothing Then
+            previousImage.Dispose()
+        End If
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub LineBlackToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles LineBlackToolStripMenuItem.Click, LineWhiteToolStripMenuItem.Click, LineRedToolStripMenuItem.Click, LineGreenToolStripMenuItem.Click, LineBlueToolStripMenuItem.Click, LineYellowToolStripMenuItem.Click, LineCustomToolStripMenuItem.Click
+
+        drawingType = drawEnum.Line
+
+        SetDrawingStyle(DirectCast(sender, ToolStripMenuItem))
+
+        'set the parent menu item to checked
+        LineToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub RectToolStripMenuItem_Click(sender As Object, e As System.EventArgs) Handles RectBlackToolStripMenuItem.Click, RectWhiteToolStripMenuItem.Click, RectRedToolStripMenuItem.Click, RectGreenToolStripMenuItem.Click, RectBlueToolStripMenuItem.Click, RectYellowToolStripMenuItem.Click, RectCustomToolStripMenuItem.Click
+
+        drawingType = drawEnum.Rect
+
+        SetDrawingStyle(DirectCast(sender, ToolStripMenuItem))
+
+        'set the parent menu item to checked
+        RectToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub EllipseToolStripMenuItem_Click(sender As Object, e As System.EventArgs) Handles EllipseBlackToolStripMenuItem.Click, EllipseWhiteToolStripMenuItem.Click, EllipseRedToolStripMenuItem.Click, EllipseGreenToolStripMenuItem.Click, EllipseBlueToolStripMenuItem.Click, EllipseYellowToolStripMenuItem.Click, EllipseCustomToolStripMenuItem.Click
+
+        drawingType = drawEnum.Ellipse
+
+        SetDrawingStyle(DirectCast(sender, ToolStripMenuItem))
+
+        'set the parent menu item to checked
+        EllipseToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub SetDrawingStyle(menuItem As ToolStripMenuItem)
+
+        ResetEditToolStrip()
+        
+        menuItem.Checked = True
+
+        Select Case menuItem.Text
+
+            Case "Black"
+
+                drawingPen = Pens.Black
+
+            Case "White"
+
+                drawingPen = Pens.White
+
+            Case "Red"
+
+                drawingPen = Pens.Red
+
+            Case "Green"
+
+                drawingPen = Pens.Green
+
+            Case "Blue"
+
+                drawingPen = Pens.Blue
+
+            Case "Yellow"
+
+                drawingPen = Pens.Yellow
+
+            Case "Custom"
+
+                ColorDialog1.ShowDialog()
+                drawingPen = New Pen(ColorDialog1.Color)
+
+            Case Else
+
+                drawingPen = Pens.Black
+
+        End Select
+
+    End Sub
+
+    Private Sub ResetEditToolStrip()
+
+        Dim menuItem1 As ToolStripMenuItem
+
+        'for each item in the menu
+        'check it is a menuitem
+        'reset the checked value
+        'reset the checked value of the child items
+        For Each toolStrip As ToolStripItem In ctxmenuEdit.Items
+
+            menuItem1 = TryCast(toolStrip, ToolStripMenuItem)
+
+            If menuItem1 IsNot Nothing Then
+
+                If menuItem1.HasDropDownItems = True Then
+                    ResetMenuItemChecked(menuItem1)
+                Else
+                    menuItem1.Checked = False
+                End If
+
+            End If
+
+        Next
+
+    End Sub
+
+    Private Sub ResetMenuItemChecked(menuItem As ToolStripMenuItem)
+
+        Dim dropDownMenuItem As ToolStripMenuItem
+
+        menuItem.Checked = False
+
+        For Each dropDown As ToolStripDropDownItem In menuItem.DropDownItems
+
+            If dropDown.HasDropDownItems = True Then
+                'only menuitems can have dropdown items
+                ResetMenuItemChecked(DirectCast(dropDown, ToolStripMenuItem))
+            Else
+                'make sure this is a menuitem before proceeding
+                dropDownMenuItem = TryCast(dropDown, ToolStripMenuItem)
+
+                If dropDownMenuItem IsNot Nothing Then
+                    dropDownMenuItem.Checked = False
+                End If
+
+            End If
+
+        Next
+
+    End Sub
+
+    Private Sub NoToolStripMenuItem_Click(sender As Object, e As System.EventArgs) Handles NoToolStripMenuItem.Click
+
+        ResetEditToolStrip()
+        NoToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub ResetToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ResetToolStripMenuItem.Click
+
+        PictureBox1.Image = DirectCast(originalImage.Clone, Image)
 
     End Sub
 

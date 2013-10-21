@@ -39,11 +39,41 @@ Partial Class app_main
         Me.ctxtmenuPrint = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.ctxmenuEdit = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.NoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LineToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LineBlackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LineWhiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LineRedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LineGreenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LineBlueToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LineYellowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RectToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RectBlackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RectWhiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RectRedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RectGreenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RectBlueToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RectYellowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EllipseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EllipseBlackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EllipseWhiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EllipseRedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EllipseGreenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EllipseBlueToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EllipseYellowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EllipseCustomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ResetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
+        Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
+        Me.RectCustomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LineCustomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ctxtmenuNew.SuspendLayout()
         Me.ctxtmenuCopy.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ctxmenuEdit.SuspendLayout()
         Me.SuspendLayout()
         '
         'cmdnew
@@ -61,29 +91,29 @@ Partial Class app_main
         '
         Me.ctxtmenuNew.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MultiSnipToolStripMenuItem, Me.ToolStripMenuItem1, Me.ClearToolStripMenuItem, Me.AutoClearToolStripMenuItem})
         Me.ctxtmenuNew.Name = "ctxtmenuNew"
-        Me.ctxtmenuNew.Size = New System.Drawing.Size(153, 98)
+        Me.ctxtmenuNew.Size = New System.Drawing.Size(137, 76)
         '
         'MultiSnipToolStripMenuItem
         '
         Me.MultiSnipToolStripMenuItem.Name = "MultiSnipToolStripMenuItem"
-        Me.MultiSnipToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.MultiSnipToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.MultiSnipToolStripMenuItem.Text = "MultiSnip"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(133, 6)
         '
         'ClearToolStripMenuItem
         '
         Me.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem"
-        Me.ClearToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ClearToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.ClearToolStripMenuItem.Text = "Clear"
         '
         'AutoClearToolStripMenuItem
         '
         Me.AutoClearToolStripMenuItem.Name = "AutoClearToolStripMenuItem"
-        Me.AutoClearToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.AutoClearToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.AutoClearToolStripMenuItem.Text = "Auto Clear"
         '
         'cmdsave
@@ -111,12 +141,12 @@ Partial Class app_main
         '
         Me.ctxtmenuCopy.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PasteToolStripMenuItem})
         Me.ctxtmenuCopy.Name = "ctxtmenuCopy"
-        Me.ctxtmenuCopy.Size = New System.Drawing.Size(102, 26)
+        Me.ctxtmenuCopy.Size = New System.Drawing.Size(113, 26)
         '
         'PasteToolStripMenuItem
         '
         Me.PasteToolStripMenuItem.Name = "PasteToolStripMenuItem"
-        Me.PasteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.PasteToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
         Me.PasteToolStripMenuItem.Text = "Paste"
         '
         'cmdprint
@@ -147,6 +177,7 @@ Partial Class app_main
         '
         'PictureBox1
         '
+        Me.PictureBox1.ContextMenuStrip = Me.ctxmenuEdit
         Me.PictureBox1.Location = New System.Drawing.Point(3, 6)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(72, 47)
@@ -154,8 +185,181 @@ Partial Class app_main
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Visible = False
         '
+        'ctxmenuEdit
+        '
+        Me.ctxmenuEdit.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NoToolStripMenuItem, Me.LineToolStripMenuItem, Me.RectToolStripMenuItem, Me.EllipseToolStripMenuItem, Me.ToolStripSeparator1, Me.ResetToolStripMenuItem})
+        Me.ctxmenuEdit.Name = "ctxmenuEdit"
+        Me.ctxmenuEdit.Size = New System.Drawing.Size(153, 142)
+        '
+        'NoToolStripMenuItem
+        '
+        Me.NoToolStripMenuItem.Checked = True
+        Me.NoToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.NoToolStripMenuItem.Name = "NoToolStripMenuItem"
+        Me.NoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.NoToolStripMenuItem.Text = "No Tool"
+        '
+        'LineToolStripMenuItem
+        '
+        Me.LineToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LineBlackToolStripMenuItem, Me.LineWhiteToolStripMenuItem, Me.LineRedToolStripMenuItem, Me.LineGreenToolStripMenuItem, Me.LineBlueToolStripMenuItem, Me.LineYellowToolStripMenuItem, Me.LineCustomToolStripMenuItem})
+        Me.LineToolStripMenuItem.Name = "LineToolStripMenuItem"
+        Me.LineToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LineToolStripMenuItem.Text = "Line"
+        '
+        'LineBlackToolStripMenuItem
+        '
+        Me.LineBlackToolStripMenuItem.Name = "LineBlackToolStripMenuItem"
+        Me.LineBlackToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LineBlackToolStripMenuItem.Text = "Black"
+        '
+        'LineWhiteToolStripMenuItem
+        '
+        Me.LineWhiteToolStripMenuItem.Name = "LineWhiteToolStripMenuItem"
+        Me.LineWhiteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LineWhiteToolStripMenuItem.Text = "White"
+        '
+        'LineRedToolStripMenuItem
+        '
+        Me.LineRedToolStripMenuItem.Name = "LineRedToolStripMenuItem"
+        Me.LineRedToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LineRedToolStripMenuItem.Text = "Red"
+        '
+        'LineGreenToolStripMenuItem
+        '
+        Me.LineGreenToolStripMenuItem.Name = "LineGreenToolStripMenuItem"
+        Me.LineGreenToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LineGreenToolStripMenuItem.Text = "Green"
+        '
+        'LineBlueToolStripMenuItem
+        '
+        Me.LineBlueToolStripMenuItem.Name = "LineBlueToolStripMenuItem"
+        Me.LineBlueToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LineBlueToolStripMenuItem.Text = "Blue"
+        '
+        'LineYellowToolStripMenuItem
+        '
+        Me.LineYellowToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control
+        Me.LineYellowToolStripMenuItem.Name = "LineYellowToolStripMenuItem"
+        Me.LineYellowToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LineYellowToolStripMenuItem.Text = "Yellow"
+        '
+        'RectToolStripMenuItem
+        '
+        Me.RectToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RectBlackToolStripMenuItem, Me.RectWhiteToolStripMenuItem, Me.RectRedToolStripMenuItem, Me.RectGreenToolStripMenuItem, Me.RectBlueToolStripMenuItem, Me.RectYellowToolStripMenuItem, Me.RectCustomToolStripMenuItem})
+        Me.RectToolStripMenuItem.Name = "RectToolStripMenuItem"
+        Me.RectToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RectToolStripMenuItem.Text = "Rectangle"
+        '
+        'RectBlackToolStripMenuItem
+        '
+        Me.RectBlackToolStripMenuItem.Name = "RectBlackToolStripMenuItem"
+        Me.RectBlackToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RectBlackToolStripMenuItem.Text = "Black"
+        '
+        'RectWhiteToolStripMenuItem
+        '
+        Me.RectWhiteToolStripMenuItem.Name = "RectWhiteToolStripMenuItem"
+        Me.RectWhiteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RectWhiteToolStripMenuItem.Text = "White"
+        '
+        'RectRedToolStripMenuItem
+        '
+        Me.RectRedToolStripMenuItem.Name = "RectRedToolStripMenuItem"
+        Me.RectRedToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RectRedToolStripMenuItem.Text = "Red"
+        '
+        'RectGreenToolStripMenuItem
+        '
+        Me.RectGreenToolStripMenuItem.Name = "RectGreenToolStripMenuItem"
+        Me.RectGreenToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RectGreenToolStripMenuItem.Text = "Green"
+        '
+        'RectBlueToolStripMenuItem
+        '
+        Me.RectBlueToolStripMenuItem.Name = "RectBlueToolStripMenuItem"
+        Me.RectBlueToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RectBlueToolStripMenuItem.Text = "Blue"
+        '
+        'RectYellowToolStripMenuItem
+        '
+        Me.RectYellowToolStripMenuItem.Name = "RectYellowToolStripMenuItem"
+        Me.RectYellowToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RectYellowToolStripMenuItem.Text = "Yellow"
+        '
+        'EllipseToolStripMenuItem
+        '
+        Me.EllipseToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EllipseBlackToolStripMenuItem, Me.EllipseWhiteToolStripMenuItem, Me.EllipseRedToolStripMenuItem, Me.EllipseGreenToolStripMenuItem, Me.EllipseBlueToolStripMenuItem, Me.EllipseYellowToolStripMenuItem, Me.EllipseCustomToolStripMenuItem})
+        Me.EllipseToolStripMenuItem.Name = "EllipseToolStripMenuItem"
+        Me.EllipseToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EllipseToolStripMenuItem.Text = "Elipse"
+        '
+        'EllipseBlackToolStripMenuItem
+        '
+        Me.EllipseBlackToolStripMenuItem.Name = "EllipseBlackToolStripMenuItem"
+        Me.EllipseBlackToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EllipseBlackToolStripMenuItem.Text = "Black"
+        '
+        'EllipseWhiteToolStripMenuItem
+        '
+        Me.EllipseWhiteToolStripMenuItem.Name = "EllipseWhiteToolStripMenuItem"
+        Me.EllipseWhiteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EllipseWhiteToolStripMenuItem.Text = "White"
+        '
+        'EllipseRedToolStripMenuItem
+        '
+        Me.EllipseRedToolStripMenuItem.Name = "EllipseRedToolStripMenuItem"
+        Me.EllipseRedToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EllipseRedToolStripMenuItem.Text = "Red"
+        '
+        'EllipseGreenToolStripMenuItem
+        '
+        Me.EllipseGreenToolStripMenuItem.Name = "EllipseGreenToolStripMenuItem"
+        Me.EllipseGreenToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EllipseGreenToolStripMenuItem.Text = "Green"
+        '
+        'EllipseBlueToolStripMenuItem
+        '
+        Me.EllipseBlueToolStripMenuItem.Name = "EllipseBlueToolStripMenuItem"
+        Me.EllipseBlueToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EllipseBlueToolStripMenuItem.Text = "Blue"
+        '
+        'EllipseYellowToolStripMenuItem
+        '
+        Me.EllipseYellowToolStripMenuItem.Name = "EllipseYellowToolStripMenuItem"
+        Me.EllipseYellowToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EllipseYellowToolStripMenuItem.Text = "Yellow"
+        '
+        'EllipseCustomToolStripMenuItem
+        '
+        Me.EllipseCustomToolStripMenuItem.Name = "EllipseCustomToolStripMenuItem"
+        Me.EllipseCustomToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EllipseCustomToolStripMenuItem.Text = "Custom"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+        '
+        'ResetToolStripMenuItem
+        '
+        Me.ResetToolStripMenuItem.Name = "ResetToolStripMenuItem"
+        Me.ResetToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ResetToolStripMenuItem.Text = "Reset"
+        '
         'PrintDocument1
         '
+        '
+        'RectCustomToolStripMenuItem
+        '
+        Me.RectCustomToolStripMenuItem.Name = "RectCustomToolStripMenuItem"
+        Me.RectCustomToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RectCustomToolStripMenuItem.Text = "Custom"
+        '
+        'LineCustomToolStripMenuItem
+        '
+        Me.LineCustomToolStripMenuItem.Name = "LineCustomToolStripMenuItem"
+        Me.LineCustomToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LineCustomToolStripMenuItem.Text = "Custom"
         '
         'app_main
         '
@@ -176,6 +380,7 @@ Partial Class app_main
         Me.ctxtmenuCopy.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ctxmenuEdit.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -195,4 +400,33 @@ Partial Class app_main
     Friend WithEvents ctxtmenuCopy As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents PasteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AutoClearToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ctxmenuEdit As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents NoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LineToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LineBlackToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LineWhiteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LineRedToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LineGreenToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LineBlueToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RectToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EllipseToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LineYellowToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RectBlackToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RectWhiteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RectRedToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RectGreenToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RectBlueToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RectYellowToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EllipseBlackToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EllipseWhiteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EllipseRedToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EllipseGreenToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EllipseBlueToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EllipseYellowToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents ResetToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EllipseCustomToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ColorDialog1 As System.Windows.Forms.ColorDialog
+    Friend WithEvents LineCustomToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RectCustomToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class
