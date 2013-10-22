@@ -17,7 +17,7 @@ Public Class app_main
     Dim lastImagePrintPos As Point
 
     Dim previousMousePos As System.Nullable(Of Point)
-    Dim previousImage As Image
+    Public previousImage As Image
 
     'store the original image to reset when required
     Public originalImage As Image
@@ -418,6 +418,10 @@ Public Class app_main
             originalImage.Dispose()
         End If
 
+        If previousImage IsNot Nothing Then
+            previousImage.Dispose()
+        End If
+
     End Sub
 
     Private Sub app_main_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
@@ -483,6 +487,7 @@ Public Class app_main
 
             End Using
             PictureBox1.Invalidate()
+            UndoToolStripMenuItem.Enabled = True
 
         End If
 
@@ -491,9 +496,6 @@ Public Class app_main
     Private Sub PictureBox1_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles PictureBox1.MouseUp
         'cleanup
         previousMousePos = Nothing
-        If previousImage IsNot Nothing Then
-            previousImage.Dispose()
-        End If
         Me.Cursor = Cursors.Default
     End Sub
 
@@ -636,7 +638,18 @@ Public Class app_main
     Private Sub ResetToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ResetToolStripMenuItem.Click
 
         PictureBox1.Image = DirectCast(originalImage.Clone, Image)
+        UndoToolStripMenuItem.Enabled = False
 
     End Sub
 
+    Private Sub UndoToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles UndoToolStripMenuItem.Click
+
+        If PictureBox1.Image.Equals(Nothing) = False AndAlso previousImage IsNot Nothing Then
+
+            PictureBox1.Image = DirectCast(previousImage.Clone, Image)
+            UndoToolStripMenuItem.Enabled = False
+
+        End If
+
+    End Sub
 End Class
