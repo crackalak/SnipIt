@@ -68,6 +68,7 @@ Partial Class app_main
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.UndoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ResetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ThicknessToolStripComboBox = New System.Windows.Forms.ToolStripComboBox()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
         Me.ctxtmenuNew.SuspendLayout()
@@ -188,23 +189,23 @@ Partial Class app_main
         '
         'ctxmenuEdit
         '
-        Me.ctxmenuEdit.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NoToolStripMenuItem, Me.LineToolStripMenuItem, Me.RectToolStripMenuItem, Me.EllipseToolStripMenuItem, Me.ToolStripSeparator1, Me.UndoToolStripMenuItem, Me.ResetToolStripMenuItem})
+        Me.ctxmenuEdit.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NoToolStripMenuItem, Me.LineToolStripMenuItem, Me.RectToolStripMenuItem, Me.EllipseToolStripMenuItem, Me.ToolStripSeparator1, Me.UndoToolStripMenuItem, Me.ResetToolStripMenuItem, Me.ThicknessToolStripComboBox})
         Me.ctxmenuEdit.Name = "ctxmenuEdit"
-        Me.ctxmenuEdit.Size = New System.Drawing.Size(153, 164)
+        Me.ctxmenuEdit.Size = New System.Drawing.Size(182, 189)
         '
         'NoToolStripMenuItem
         '
         Me.NoToolStripMenuItem.Checked = True
         Me.NoToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.NoToolStripMenuItem.Name = "NoToolStripMenuItem"
-        Me.NoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.NoToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
         Me.NoToolStripMenuItem.Text = "No Tool"
         '
         'LineToolStripMenuItem
         '
         Me.LineToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LineBlackToolStripMenuItem, Me.LineWhiteToolStripMenuItem, Me.LineRedToolStripMenuItem, Me.LineGreenToolStripMenuItem, Me.LineBlueToolStripMenuItem, Me.LineYellowToolStripMenuItem, Me.LineCustomToolStripMenuItem})
         Me.LineToolStripMenuItem.Name = "LineToolStripMenuItem"
-        Me.LineToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LineToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
         Me.LineToolStripMenuItem.Text = "Line"
         '
         'LineBlackToolStripMenuItem
@@ -254,7 +255,7 @@ Partial Class app_main
         '
         Me.RectToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RectBlackToolStripMenuItem, Me.RectWhiteToolStripMenuItem, Me.RectRedToolStripMenuItem, Me.RectGreenToolStripMenuItem, Me.RectBlueToolStripMenuItem, Me.RectYellowToolStripMenuItem, Me.RectCustomToolStripMenuItem})
         Me.RectToolStripMenuItem.Name = "RectToolStripMenuItem"
-        Me.RectToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RectToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
         Me.RectToolStripMenuItem.Text = "Rectangle"
         '
         'RectBlackToolStripMenuItem
@@ -303,7 +304,7 @@ Partial Class app_main
         '
         Me.EllipseToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EllipseBlackToolStripMenuItem, Me.EllipseWhiteToolStripMenuItem, Me.EllipseRedToolStripMenuItem, Me.EllipseGreenToolStripMenuItem, Me.EllipseBlueToolStripMenuItem, Me.EllipseYellowToolStripMenuItem, Me.EllipseCustomToolStripMenuItem})
         Me.EllipseToolStripMenuItem.Name = "EllipseToolStripMenuItem"
-        Me.EllipseToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EllipseToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
         Me.EllipseToolStripMenuItem.Text = "Elipse"
         '
         'EllipseBlackToolStripMenuItem
@@ -351,20 +352,26 @@ Partial Class app_main
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(178, 6)
         '
         'UndoToolStripMenuItem
         '
         Me.UndoToolStripMenuItem.Enabled = False
         Me.UndoToolStripMenuItem.Name = "UndoToolStripMenuItem"
-        Me.UndoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.UndoToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
         Me.UndoToolStripMenuItem.Text = "Undo"
         '
         'ResetToolStripMenuItem
         '
         Me.ResetToolStripMenuItem.Name = "ResetToolStripMenuItem"
-        Me.ResetToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ResetToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
         Me.ResetToolStripMenuItem.Text = "Reset"
+        '
+        'ThicknessToolStripComboBox
+        '
+        Me.ThicknessToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ThicknessToolStripComboBox.Name = "ThicknessToolStripComboBox"
+        Me.ThicknessToolStripComboBox.Size = New System.Drawing.Size(121, 21)
         '
         'PrintDocument1
         '
@@ -438,4 +445,5 @@ Partial Class app_main
     Friend WithEvents LineCustomToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RectCustomToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents UndoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ThicknessToolStripComboBox As System.Windows.Forms.ToolStripComboBox
 End Class

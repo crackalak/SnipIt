@@ -140,10 +140,6 @@ Public Class app_main
 
     End Sub
 
-    Private Sub app_main_Activated(sender As Object, e As System.EventArgs) Handles Me.Activated
-
-    End Sub
-
     Private Sub app_main_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         'set the debug option
@@ -167,6 +163,15 @@ Public Class app_main
             End If
 
         Next
+
+        For i As Integer = 1 To 10
+
+            ThicknessToolStripComboBox.Items.Add("Thickness: " & i.ToString)
+
+        Next
+
+        ThicknessToolStripComboBox.SelectedIndex = 0
+
 
         'Dim itemdefault As ToolStripMenuItem
 
@@ -538,31 +543,33 @@ Public Class app_main
         
         menuItem.Checked = True
 
+        Dim lineThickness As Single = ThicknessToolStripComboBox.SelectedIndex + 1
+
         Select Case menuItem.Text
 
             Case "Black"
 
-                drawingPen = Pens.Black
+                drawingPen = New Pen(Brushes.Black)
 
             Case "White"
 
-                drawingPen = Pens.White
+                drawingPen = New Pen(Brushes.White)
 
             Case "Red"
 
-                drawingPen = Pens.Red
+                drawingPen = New Pen(Brushes.Red)
 
             Case "Green"
 
-                drawingPen = Pens.Green
+                drawingPen = New Pen(Brushes.Green)
 
             Case "Blue"
 
-                drawingPen = Pens.Blue
+                drawingPen = New Pen(Brushes.Blue)
 
             Case "Yellow"
 
-                drawingPen = Pens.Yellow
+                drawingPen = New Pen(Brushes.Yellow)
 
             Case "Custom"
 
@@ -571,9 +578,11 @@ Public Class app_main
 
             Case Else
 
-                drawingPen = Pens.Black
+                drawingPen = New Pen(Brushes.Black)
 
         End Select
+
+        drawingPen.Width = lineThickness
 
     End Sub
 
@@ -648,6 +657,16 @@ Public Class app_main
 
             PictureBox1.Image = DirectCast(previousImage.Clone, Image)
             UndoToolStripMenuItem.Enabled = False
+
+        End If
+
+    End Sub
+
+    Private Sub ThicknessToolStripComboBox_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ThicknessToolStripComboBox.SelectedIndexChanged
+
+        If drawingPen IsNot Nothing Then
+
+            drawingPen.Width = ThicknessToolStripComboBox.SelectedIndex + 1
 
         End If
 
