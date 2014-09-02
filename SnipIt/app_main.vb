@@ -17,13 +17,16 @@ Public Class app_main
     Dim lastImagePrintPos As Point
 
     Dim previousMousePos As System.Nullable(Of Point)
-    Public previousImage As Image
+    'Public previousImage As Image
 
     'store the original image to reset when required
     Public originalImage As Image
 
     Dim drawingPen As Pen
     Dim drawingType As drawEnum
+    Dim drawingFont As Font
+    Dim drawingFontColour As Color
+    Dim undoStack As Stack(Of Image)
 
     Private Sub cmdnew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdnew.Click
 
@@ -60,6 +63,9 @@ Public Class app_main
             Me.Size = Me.MinimumSize
 
         End If
+
+        undoStack = New Stack(Of Image)
+        UndoToolStripMenuItem.Enabled = False
 
         app_capture.Show()
 
@@ -190,6 +196,8 @@ Public Class app_main
         If Me.Name = "app_main" Then
             Me.Tag = "*"
         End If
+
+        undoStack = New Stack(Of Image)
 
     End Sub
 
@@ -423,9 +431,11 @@ Public Class app_main
             originalImage.Dispose()
         End If
 
-        If previousImage IsNot Nothing Then
-            previousImage.Dispose()
-        End If
+        undoStack = New Stack(Of Image)
+
+        'If previousImage IsNot Nothing Then
+        'previousImage.Dispose()
+        'End If
 
     End Sub
 
@@ -451,10 +461,39 @@ Public Class app_main
 
     Private Sub PictureBox1_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles PictureBox1.MouseDown
         If e.Button = Windows.Forms.MouseButtons.Left AndAlso NoToolStripMenuItem.Checked = False Then
-            previousMousePos = e.Location
-            'create a new clone of the image
-            previousImage = DirectCast(PictureBox1.Image.Clone, Image)
-            Me.Cursor = Cursors.Cross
+
+            'previousImage = DirectCast(PictureBox1.Image.Clone, Image)
+
+            'add a new clone of the image to the stack
+            undoStack.Push(DirectCast(PictureBox1.Image.Clone, Image))
+
+            If TextEntryToolStripMenuItem.Checked = True Then
+
+                Me.TopMost = False
+
+                'get the required text, use the font and colour previously set in font dialog
+                Dim textEntry As String = InputBox("Enter text:", "SnipIt Text Entry")
+
+                If String.IsNullOrEmpty(textEntry) = False Then
+
+                    Using g As Graphics = Graphics.FromImage(PictureBox1.Image)
+                        g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+
+                        g.DrawString(textEntry, drawingFont, New SolidBrush(drawingFontColour), e.Location)
+
+                    End Using
+                    PictureBox1.Invalidate()
+
+                End If
+
+                Me.TopMost = True
+
+            Else
+                previousMousePos = e.Location
+
+                Me.Cursor = Cursors.Cross
+            End If
+
         End If
     End Sub
 
@@ -464,7 +503,8 @@ Public Class app_main
 
             'set the image to the previous one on mousedown
             'each time before drawing
-            PictureBox1.Image = DirectCast(previousImage.Clone, Image)
+            'PictureBox1.Image = DirectCast(previousImage.Clone, Image)
+            PictureBox1.Image = DirectCast(undoStack.Peek().Clone, Image)
 
             Using g As Graphics = Graphics.FromImage(PictureBox1.Image)
                 g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
@@ -646,6 +686,7 @@ Public Class app_main
 
     Private Sub ResetToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ResetToolStripMenuItem.Click
 
+        undoStack.Clear()
         PictureBox1.Image = DirectCast(originalImage.Clone, Image)
         UndoToolStripMenuItem.Enabled = False
 
@@ -653,10 +694,15 @@ Public Class app_main
 
     Private Sub UndoToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles UndoToolStripMenuItem.Click
 
-        If PictureBox1.Image.Equals(Nothing) = False AndAlso previousImage IsNot Nothing Then
+        If PictureBox1.Image.Equals(Nothing) = False AndAlso undoStack IsNot Nothing Then
 
-            PictureBox1.Image = DirectCast(previousImage.Clone, Image)
-            UndoToolStripMenuItem.Enabled = False
+            'get the previous image off the stack
+            PictureBox1.Image = DirectCast(undoStack.Pop().Clone(), Image)
+
+            'PictureBox1.Image = DirectCast(previousImage.Clone, Image)
+            If undoStack.Count = 0 Then
+                UndoToolStripMenuItem.Enabled = False
+            End If
 
         End If
 
@@ -667,6 +713,26 @@ Public Class app_main
         If drawingPen IsNot Nothing Then
 
             drawingPen.Width = ThicknessToolStripComboBox.SelectedIndex + 1
+
+        End If
+
+    End Sub
+
+    Private Sub TextEntryToolStripMenuItem_Click(sender As Object, e As System.EventArgs) Handles TextEntryToolStripMenuItem.Click
+
+        FontDialog1.FontMustExist = True
+        FontDialog1.ShowColor = True
+        FontDialog1.Font = drawingFont
+
+        If FontDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
+
+            drawingFont = FontDialog1.Font
+            drawingFontColour = FontDialog1.Color
+
+            ResetEditToolStrip()
+
+            TextEntryToolStripMenuItem.Checked = True
+            UndoToolStripMenuItem.Enabled = True
 
         End If
 

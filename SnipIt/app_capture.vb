@@ -201,9 +201,9 @@
                                     .originalImage = Image.FromHbitmap(bmp.GetHbitmap)
 
                                     'remove the previous copy of the image (used for undo)
-                                    If .previousImage IsNot Nothing Then
-                                        .previousImage.Dispose()
-                                    End If
+                                    'If .previousImage IsNot Nothing Then
+                                    '.previousImage.Dispose()
+                                    'End If
 
                                     'change main form dimensions for new capture
                                     .Height = .Height + .PictureBox1.Height + 5
@@ -234,9 +234,9 @@
                                     .originalImage = Image.FromHbitmap(bmp.GetHbitmap)
 
                                     'remove the previous copy of the image (used for undo)
-                                    If .previousImage IsNot Nothing Then
-                                        .previousImage.Dispose()
-                                    End If
+                                    'If .previousImage IsNot Nothing Then
+                                    '.previousImage.Dispose()
+                                    'End If
 
                                     'change main form dimensions for new capture
                                     .Height = .Height + .PictureBox1.Height + 5
