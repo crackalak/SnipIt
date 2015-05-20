@@ -34,8 +34,6 @@
             this.cmdcopy = new System.Windows.Forms.Button();
             this.cmdsave = new System.Windows.Forms.Button();
             this.cmdnew = new System.Windows.Forms.Button();
-            this.Panel1 = new System.Windows.Forms.Panel();
-            this.PictureBox1 = new System.Windows.Forms.PictureBox();
             this.SaveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.FontDialog1 = new System.Windows.Forms.FontDialog();
             this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
@@ -79,11 +77,11 @@
             this.ClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AutoClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PrintDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
+            this.PictureBox1 = new System.Windows.Forms.PictureBox();
             this.ctxmenuEdit.SuspendLayout();
             this.ctxtmenuCopy.SuspendLayout();
             this.ctxtmenuNew.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdprint
@@ -133,29 +131,6 @@
             this.cmdnew.Text = "New";
             this.cmdnew.UseVisualStyleBackColor = true;
             this.cmdnew.Click += new System.EventHandler(this.cmdnew_Click);
-            // 
-            // Panel1
-            // 
-            this.Panel1.BackColor = System.Drawing.Color.Silver;
-            this.Panel1.Controls.Add(this.PictureBox1);
-            this.Panel1.Location = new System.Drawing.Point(0, 30);
-            this.Panel1.MinimumSize = new System.Drawing.Size(260, 0);
-            this.Panel1.Name = "Panel1";
-            this.Panel1.Size = new System.Drawing.Size(266, 78);
-            this.Panel1.TabIndex = 9;
-            // 
-            // PictureBox1
-            // 
-            this.PictureBox1.Location = new System.Drawing.Point(3, 6);
-            this.PictureBox1.Name = "PictureBox1";
-            this.PictureBox1.Size = new System.Drawing.Size(72, 47);
-            this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.PictureBox1.TabIndex = 6;
-            this.PictureBox1.TabStop = false;
-            this.PictureBox1.Visible = false;
-            this.PictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseDown);
-            this.PictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
-            this.PictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseUp);
             // 
             // ctxmenuEdit
             // 
@@ -465,12 +440,27 @@
             // 
             this.PrintDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDocument1_PrintPage);
             // 
+            // PictureBox1
+            // 
+            this.PictureBox1.BackColor = System.Drawing.Color.DarkGray;
+            this.PictureBox1.Location = new System.Drawing.Point(0, 32);
+            this.PictureBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.PictureBox1.Name = "PictureBox1";
+            this.PictureBox1.Padding = new System.Windows.Forms.Padding(5);
+            this.PictureBox1.Size = new System.Drawing.Size(256, 10);
+            this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.PictureBox1.TabIndex = 10;
+            this.PictureBox1.TabStop = false;
+            this.PictureBox1.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(266, 34);
-            this.Controls.Add(this.Panel1);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(266, 32);
+            this.Controls.Add(this.PictureBox1);
             this.Controls.Add(this.cmdprint);
             this.Controls.Add(this.cmdcopy);
             this.Controls.Add(this.cmdsave);
@@ -482,13 +472,12 @@
             this.Text = "SnipIt";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
-            this.Panel1.ResumeLayout(false);
-            this.Panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ctxmenuEdit.ResumeLayout(false);
             this.ctxtmenuCopy.ResumeLayout(false);
             this.ctxtmenuNew.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -498,8 +487,6 @@
         internal System.Windows.Forms.Button cmdcopy;
         internal System.Windows.Forms.Button cmdsave;
         internal System.Windows.Forms.Button cmdnew;
-        internal System.Windows.Forms.Panel Panel1;
-        internal System.Windows.Forms.PictureBox PictureBox1;
         internal System.Windows.Forms.SaveFileDialog SaveFileDialog1;
         internal System.Windows.Forms.FontDialog FontDialog1;
         internal System.Windows.Forms.ColorDialog ColorDialog1;
@@ -543,6 +530,7 @@
         internal System.Windows.Forms.ToolStripMenuItem ClearToolStripMenuItem;
         internal System.Windows.Forms.ToolStripMenuItem AutoClearToolStripMenuItem;
         internal System.Drawing.Printing.PrintDocument PrintDocument1;
+        internal System.Windows.Forms.PictureBox PictureBox1;
     }
 }
 

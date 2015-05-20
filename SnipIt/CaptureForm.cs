@@ -160,14 +160,14 @@ namespace SnipIt
                             // hold original image
                             snipForm.originalImage = Image.FromHbitmap(bmp.GetHbitmap());
 
-                            // picturebox has automatically resized
-                            // resize the form
-                            snipForm.Height = snipForm.Height + snipForm.PictureBox1.Height + 5;
-                            snipForm.Width = snipForm.PictureBox1.Width + 12;
+                            //// picturebox has automatically resized
+                            //// resize the form
+                            //snipForm.Height = snipForm.Height + snipForm.PictureBox1.Height + 5;
+                            //snipForm.Width = snipForm.PictureBox1.Width + 12;
 
-                            // change panel container dimensions for border
-                            snipForm.Panel1.Height = snipForm.Height - 32;
-                            snipForm.Panel1.Width = snipForm.Width - 6;
+                            //// change panel container dimensions for border
+                            //snipForm.Panel1.Height = snipForm.Height - 32;
+                            //snipForm.Panel1.Width = snipForm.Width - 6;
 
                             // show new form to top left of current snip position
                             snipForm.StartPosition = FormStartPosition.Manual;

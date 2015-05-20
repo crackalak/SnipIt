@@ -121,7 +121,6 @@ namespace SnipIt
         {
             this.Size = this.MinimumSize;
             PictureBox1.Image = null;
-            PictureBox1.BackColor = Color.Empty;
             PictureBox1.Invalidate();
             PictureBox1.Visible = false;
 
@@ -326,12 +325,12 @@ namespace SnipIt
                 PictureBox1.Visible = true;
 
                 // change main form dimensions for new capture
-                this.Height = this.Height + PictureBox1.Height + 5;
-                this.Width = PictureBox1.Width + 12;
+                //this.Height = this.Height + PictureBox1.Height + 5;
+                //this.Width = PictureBox1.Width + 12;
 
-                // change panel container dimensions for border around piturebox
-                Panel1.Width = this.Width - 6;
-                Panel1.Height = this.Height - 32;
+                //// change panel container dimensions for border around piturebox
+                //Panel1.Width = this.Width - 6;
+                //Panel1.Height = this.Height - 32;
             }
         }
 
