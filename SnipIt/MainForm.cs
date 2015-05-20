@@ -82,18 +82,18 @@ namespace SnipIt
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (this == Program.ControllerForm)
-            {
-                // minimise each open form at the same time
-                foreach (Form item in Application.OpenForms)
-                {
-                    // ignore the main form with asterisk as the tag
-                    if (item != this)
-                    {
-                        item.Visible = !item.Visible;
-                    }
-                }
-            }
+            //if (this == Program.ControllerForm)
+            //{
+            //    // minimise each open form at the same time
+            //    foreach (Form item in Application.OpenForms)
+            //    {
+            //        // ignore the main form with asterisk as the tag
+            //        if (item != this)
+            //        {
+            //            item.Visible = !item.Visible;
+            //        }
+            //    }
+            //}
         }
 
         private void MultiSnipToolStripMenuItem_Click(object sender, EventArgs e)
@@ -119,7 +119,6 @@ namespace SnipIt
 
         private void ClearAll()
         {
-            this.Size = this.MinimumSize;
             PictureBox1.Image = null;
             PictureBox1.Invalidate();
             PictureBox1.Visible = false;
@@ -130,6 +129,8 @@ namespace SnipIt
             }
 
             undoStack = new Stack<Image>();
+
+            CloseSubForms();
         }
 
         private void cmdcopy_Click(object sender, EventArgs e)
@@ -318,8 +319,6 @@ namespace SnipIt
         {
             if (Clipboard.ContainsImage())
             {
-                this.Size = this.MinimumSize;
-
                 // get image from clipboard and load
                 PictureBox1.Image = Clipboard.GetImage();
                 PictureBox1.Visible = true;
@@ -606,6 +605,19 @@ namespace SnipIt
             }
         }
 
+        private void CloseSubForms()
+        {
+            // can't use for each here because the collection gets modified
+            // with the close method
+            for (int i = Application.OpenForms.Count - 1; i > -1; i--)
+            {
+                if (Application.OpenForms[i] != Program.ControllerForm)
+                {
+                    Application.OpenForms[i].Close();
+                }
+            }
+        }
+
         private void cmdnew_Click(object sender, EventArgs e)
         {
             // hide snip forms if in multisnip mode, otherwise close them
@@ -618,23 +630,17 @@ namespace SnipIt
 
                 if (autoClear)
                 {
-                    this.Size = this.MinimumSize;
+                    this.PictureBox1.Image = null;
+                    this.PictureBox1.Visible = false;
                 }
             }
             else
             {
                 // close the sub forms after switching from multi to single
-                // can't use for each here because the collection gets modified
-                // with the close method
-                for (int i = Application.OpenForms.Count - 1; i > -1; i--)
-                {
-                    if (Application.OpenForms[i] != Program.ControllerForm)
-                    {
-                        Application.OpenForms[i].Close();
-                    }
-                }
+                CloseSubForms();   
 
-                this.Size = this.MinimumSize;
+                this.PictureBox1.Image = null;
+                this.PictureBox1.Visible = false;
                 this.Hide();
             }
 
@@ -642,8 +648,45 @@ namespace SnipIt
             UndoToolStripMenuItem.Enabled = false;
 
             //show capture form
-            CaptureForm capture = new CaptureForm();
-            capture.ShowDialog();
+            using (CaptureForm capture = new CaptureForm())
+            {
+                if (capture.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    MainForm snipForm;
+
+                    if (Program.MultiSnip) 
+                    {
+                        snipForm = new MainForm();
+                        snipForm.ShowInTaskbar = false;
+                        snipForm.cmdnew.Enabled = false;
+                        Program.ControllerForm.Text = "SnipIt - Main";
+                    }
+                    else
+                    {
+                        snipForm = Program.ControllerForm;
+                        snipForm.Text = "SnipIt";
+                    }
+
+                    // load captured image
+                    snipForm.PictureBox1.Image = capture.ImageCaptured;
+                    snipForm.PictureBox1.Visible = true;
+                    
+                    // hold original image
+                    snipForm.originalImage = capture.ImageCaptured;
+
+                    // show new form to top left of current snip position
+                    snipForm.StartPosition = FormStartPosition.Manual;
+                    snipForm.Location = capture.PanelPosition;
+
+                    snipForm.Show();
+                }
+
+                // show each snip and set non main settings
+                foreach (Form showForm in Application.OpenForms)
+                {
+                    showForm.Show();
+                }
+            }
         }
     }
 }

@@ -17,6 +17,9 @@ namespace SnipIt
         // start position of cursor
         private Point startPos;
 
+        public Image ImageCaptured { get; set; }
+        public Point PanelPosition { get; set; }
+
         public CaptureForm()
         {
             InitializeComponent();
@@ -62,8 +65,9 @@ namespace SnipIt
         private void Close_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.Default;
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Close();
-            Program.ControllerForm.Show();
+            //Program.ControllerForm.Show();
         }
 
         private void CaptureForm_MouseDown(object sender, MouseEventArgs e)
@@ -138,59 +142,62 @@ namespace SnipIt
                         using (Bitmap bmp = new Bitmap(this.selPanel.Size.Width, this.selPanel.Size.Height))
                         using (Graphics gfx = Graphics.FromImage(bmp))
                         {
-                            Point panelPosition = new Point(this.selPanel.Location.X + this.Bounds.X, this.selPanel.Location.Y + this.Bounds.Y);
-
+                            this.PanelPosition = new Point(this.selPanel.Location.X + this.Bounds.X, this.selPanel.Location.Y + this.Bounds.Y);
+                            
                             // make sure this form isn't copied
                             this.Opacity = 0;
 
                             // copy the selection area from the screen
-                            gfx.CopyFromScreen(panelPosition, new Point(0, 0), this.selPanel.Size, CopyPixelOperation.SourceCopy);
-
-                            MainForm snipForm;
-
-                            if (Program.MultiSnip)
-                                snipForm = new MainForm();
-                            else
-                                snipForm = Program.ControllerForm;
+                            gfx.CopyFromScreen(this.PanelPosition, new Point(0, 0), this.selPanel.Size, CopyPixelOperation.SourceCopy);
                             
-                            // load captured image
-                            snipForm.PictureBox1.Image = Image.FromHbitmap(bmp.GetHbitmap());
-                            snipForm.PictureBox1.Visible = true;
+                            this.ImageCaptured = Image.FromHbitmap(bmp.GetHbitmap());
 
-                            // hold original image
-                            snipForm.originalImage = Image.FromHbitmap(bmp.GetHbitmap());
+                            //MainForm snipForm;
 
-                            //// picturebox has automatically resized
-                            //// resize the form
-                            //snipForm.Height = snipForm.Height + snipForm.PictureBox1.Height + 5;
-                            //snipForm.Width = snipForm.PictureBox1.Width + 12;
+                            //if (Program.MultiSnip)
+                            //    snipForm = new MainForm();
+                            //else
+                            //    snipForm = Program.ControllerForm;
+                            
+                            //// load captured image
+                            //snipForm.PictureBox1.Image = Image.FromHbitmap(bmp.GetHbitmap());
+                            //snipForm.PictureBox1.Visible = true;
 
-                            //// change panel container dimensions for border
-                            //snipForm.Panel1.Height = snipForm.Height - 32;
-                            //snipForm.Panel1.Width = snipForm.Width - 6;
+                            //// hold original image
+                            //snipForm.originalImage = Image.FromHbitmap(bmp.GetHbitmap());
 
-                            // show new form to top left of current snip position
-                            snipForm.StartPosition = FormStartPosition.Manual;
-                            snipForm.Location = panelPosition;
+                            ////// picturebox has automatically resized
+                            ////// resize the form
+                            ////snipForm.Height = snipForm.Height + snipForm.PictureBox1.Height + 5;
+                            ////snipForm.Width = snipForm.PictureBox1.Width + 12;
+
+                            ////// change panel container dimensions for border
+                            ////snipForm.Panel1.Height = snipForm.Height - 32;
+                            ////snipForm.Panel1.Width = snipForm.Width - 6;
+
+                            //// show new form to top left of current snip position
+                            //snipForm.StartPosition = FormStartPosition.Manual;
+                            //snipForm.Location = panelPosition;
                             
                             Cursor = Cursors.Default;
 
+                            this.DialogResult = System.Windows.Forms.DialogResult.OK;
                             this.Close();
 
-                            if (Program.MultiSnip)
-                            {
-                                Program.ControllerForm.Text = "SnipIt - Main";
+                            //if (Program.MultiSnip)
+                            //{
+                            //    Program.ControllerForm.Text = "SnipIt - Main";
 
-                                // show each snip and set non main settings
-                                foreach (Form showForm in Application.OpenForms)
-                                {
-                                    showForm.Show();
-                                }
-                                snipForm.ShowInTaskbar = false;
-                                snipForm.cmdnew.Enabled = false;
-                            }
+                            //    // show each snip and set non main settings
+                            //    foreach (Form showForm in Application.OpenForms)
+                            //    {
+                            //        showForm.Show();
+                            //    }
+                            //    snipForm.ShowInTaskbar = false;
+                            //    snipForm.cmdnew.Enabled = false;
+                            //}
 
-                            snipForm.Show();
+                            //snipForm.Show();
                         }
                     }
                 }

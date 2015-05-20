@@ -467,6 +467,7 @@
             this.Controls.Add(this.cmdnew);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(278, 58);
             this.Name = "MainForm";
             this.Text = "SnipIt";
