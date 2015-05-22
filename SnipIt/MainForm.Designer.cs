@@ -443,6 +443,7 @@
             // PictureBox1
             // 
             this.PictureBox1.BackColor = System.Drawing.Color.DarkGray;
+            this.PictureBox1.ContextMenuStrip = this.ctxmenuEdit;
             this.PictureBox1.Location = new System.Drawing.Point(0, 32);
             this.PictureBox1.Margin = new System.Windows.Forms.Padding(0);
             this.PictureBox1.Name = "PictureBox1";
@@ -452,6 +453,9 @@
             this.PictureBox1.TabIndex = 10;
             this.PictureBox1.TabStop = false;
             this.PictureBox1.Visible = false;
+            this.PictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseDown);
+            this.PictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
+            this.PictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseUp);
             // 
             // MainForm
             // 

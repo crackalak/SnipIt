@@ -69,7 +69,7 @@ namespace SnipIt
                 }
             }
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 1; i < 11; i++)
             {
                 ThicknessToolStripComboBox.Items.Add("Thickness: " + i.ToString());
             }
@@ -460,6 +460,8 @@ namespace SnipIt
 
         private void SetDrawingStyle(ToolStripMenuItem item)
         {
+            ResetEditToolStrip();
+            
             item.Checked = true;
 
             Single lineThickness = ThicknessToolStripComboBox.SelectedIndex + 1;
