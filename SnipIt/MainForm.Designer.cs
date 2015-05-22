@@ -31,9 +31,17 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.cmdprint = new System.Windows.Forms.Button();
+            this.ctxtmenuPrint = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmdcopy = new System.Windows.Forms.Button();
+            this.ctxtmenuCopy = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.PasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmdsave = new System.Windows.Forms.Button();
             this.cmdnew = new System.Windows.Forms.Button();
+            this.ctxtmenuNew = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.MultiSnipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AutoClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.FontDialog1 = new System.Windows.Forms.FontDialog();
             this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
@@ -68,19 +76,11 @@
             this.UndoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ThicknessToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
-            this.ctxtmenuCopy = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.PasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ctxtmenuPrint = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ctxtmenuNew = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.MultiSnipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.ClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AutoClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PrintDocument1 = new System.Drawing.Printing.PrintDocument();
             this.PictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ctxmenuEdit.SuspendLayout();
             this.ctxtmenuCopy.SuspendLayout();
             this.ctxtmenuNew.SuspendLayout();
+            this.ctxmenuEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,6 +97,12 @@
             this.cmdprint.Click += new System.EventHandler(this.cmdprint_Click);
             this.cmdprint.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cmdprint_MouseDown);
             // 
+            // ctxtmenuPrint
+            // 
+            this.ctxtmenuPrint.Name = "ctxtmenuPrint";
+            this.ctxtmenuPrint.Size = new System.Drawing.Size(61, 4);
+            this.ctxtmenuPrint.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ctxtmenuPrint_ItemClicked);
+            // 
             // cmdcopy
             // 
             this.cmdcopy.ContextMenuStrip = this.ctxtmenuCopy;
@@ -108,6 +114,20 @@
             this.cmdcopy.Text = "Copy";
             this.cmdcopy.UseVisualStyleBackColor = true;
             this.cmdcopy.Click += new System.EventHandler(this.cmdcopy_Click);
+            // 
+            // ctxtmenuCopy
+            // 
+            this.ctxtmenuCopy.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PasteToolStripMenuItem});
+            this.ctxtmenuCopy.Name = "ctxtmenuCopy";
+            this.ctxtmenuCopy.Size = new System.Drawing.Size(103, 26);
+            // 
+            // PasteToolStripMenuItem
+            // 
+            this.PasteToolStripMenuItem.Name = "PasteToolStripMenuItem";
+            this.PasteToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.PasteToolStripMenuItem.Text = "Paste";
+            this.PasteToolStripMenuItem.Click += new System.EventHandler(this.PasteToolStripMenuItem_Click);
             // 
             // cmdsave
             // 
@@ -131,6 +151,42 @@
             this.cmdnew.Text = "New";
             this.cmdnew.UseVisualStyleBackColor = true;
             this.cmdnew.Click += new System.EventHandler(this.cmdnew_Click);
+            // 
+            // ctxtmenuNew
+            // 
+            this.ctxtmenuNew.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MultiSnipToolStripMenuItem,
+            this.ToolStripMenuItem1,
+            this.ClearToolStripMenuItem,
+            this.AutoClearToolStripMenuItem});
+            this.ctxtmenuNew.Name = "ctxtmenuNew";
+            this.ctxtmenuNew.Size = new System.Drawing.Size(131, 76);
+            // 
+            // MultiSnipToolStripMenuItem
+            // 
+            this.MultiSnipToolStripMenuItem.Name = "MultiSnipToolStripMenuItem";
+            this.MultiSnipToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.MultiSnipToolStripMenuItem.Text = "MultiSnip";
+            this.MultiSnipToolStripMenuItem.Click += new System.EventHandler(this.MultiSnipToolStripMenuItem_Click);
+            // 
+            // ToolStripMenuItem1
+            // 
+            this.ToolStripMenuItem1.Name = "ToolStripMenuItem1";
+            this.ToolStripMenuItem1.Size = new System.Drawing.Size(127, 6);
+            // 
+            // ClearToolStripMenuItem
+            // 
+            this.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem";
+            this.ClearToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.ClearToolStripMenuItem.Text = "Clear";
+            this.ClearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
+            // 
+            // AutoClearToolStripMenuItem
+            // 
+            this.AutoClearToolStripMenuItem.Name = "AutoClearToolStripMenuItem";
+            this.AutoClearToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.AutoClearToolStripMenuItem.Text = "Auto Clear";
+            this.AutoClearToolStripMenuItem.Click += new System.EventHandler(this.AutoClearToolStripMenuItem_Click);
             // 
             // ctxmenuEdit
             // 
@@ -380,62 +436,6 @@
             this.ThicknessToolStripComboBox.Size = new System.Drawing.Size(121, 23);
             this.ThicknessToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.ThicknessToolStripComboBox_SelectedIndexChanged);
             // 
-            // ctxtmenuCopy
-            // 
-            this.ctxtmenuCopy.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.PasteToolStripMenuItem});
-            this.ctxtmenuCopy.Name = "ctxtmenuCopy";
-            this.ctxtmenuCopy.Size = new System.Drawing.Size(103, 26);
-            // 
-            // PasteToolStripMenuItem
-            // 
-            this.PasteToolStripMenuItem.Name = "PasteToolStripMenuItem";
-            this.PasteToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
-            this.PasteToolStripMenuItem.Text = "Paste";
-            this.PasteToolStripMenuItem.Click += new System.EventHandler(this.PasteToolStripMenuItem_Click);
-            // 
-            // ctxtmenuPrint
-            // 
-            this.ctxtmenuPrint.Name = "ctxtmenuPrint";
-            this.ctxtmenuPrint.Size = new System.Drawing.Size(61, 4);
-            this.ctxtmenuPrint.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ctxtmenuPrint_ItemClicked);
-            // 
-            // ctxtmenuNew
-            // 
-            this.ctxtmenuNew.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MultiSnipToolStripMenuItem,
-            this.ToolStripMenuItem1,
-            this.ClearToolStripMenuItem,
-            this.AutoClearToolStripMenuItem});
-            this.ctxtmenuNew.Name = "ctxtmenuNew";
-            this.ctxtmenuNew.Size = new System.Drawing.Size(131, 76);
-            // 
-            // MultiSnipToolStripMenuItem
-            // 
-            this.MultiSnipToolStripMenuItem.Name = "MultiSnipToolStripMenuItem";
-            this.MultiSnipToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.MultiSnipToolStripMenuItem.Text = "MultiSnip";
-            this.MultiSnipToolStripMenuItem.Click += new System.EventHandler(this.MultiSnipToolStripMenuItem_Click);
-            // 
-            // ToolStripMenuItem1
-            // 
-            this.ToolStripMenuItem1.Name = "ToolStripMenuItem1";
-            this.ToolStripMenuItem1.Size = new System.Drawing.Size(127, 6);
-            // 
-            // ClearToolStripMenuItem
-            // 
-            this.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem";
-            this.ClearToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.ClearToolStripMenuItem.Text = "Clear";
-            this.ClearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
-            // 
-            // AutoClearToolStripMenuItem
-            // 
-            this.AutoClearToolStripMenuItem.Name = "AutoClearToolStripMenuItem";
-            this.AutoClearToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.AutoClearToolStripMenuItem.Text = "Auto Clear";
-            this.AutoClearToolStripMenuItem.Click += new System.EventHandler(this.AutoClearToolStripMenuItem_Click);
-            // 
             // PrintDocument1
             // 
             this.PrintDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDocument1_PrintPage);
@@ -465,17 +465,18 @@
             this.Controls.Add(this.cmdcopy);
             this.Controls.Add(this.cmdsave);
             this.Controls.Add(this.cmdnew);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(278, 58);
             this.Name = "MainForm";
             this.Text = "SnipIt";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
-            this.ctxmenuEdit.ResumeLayout(false);
             this.ctxtmenuCopy.ResumeLayout(false);
             this.ctxtmenuNew.ResumeLayout(false);
+            this.ctxmenuEdit.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
