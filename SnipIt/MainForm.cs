@@ -323,6 +323,10 @@ namespace SnipIt
                 PictureBox1.Image = Clipboard.GetImage();
                 PictureBox1.Visible = true;
 
+                // fix for form not autoscaling after picture size has changed
+                this.Invalidate();
+                this.PerformAutoScale();
+                
                 // change main form dimensions for new capture
                 //this.Height = this.Height + PictureBox1.Height + 5;
                 //this.Width = PictureBox1.Width + 12;
