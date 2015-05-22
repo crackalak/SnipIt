@@ -95,7 +95,7 @@ namespace SnipIt
             // selection is being made, resize and reposition the panel
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                if (e.X > startPos.Y)
+                if (e.X > startPos.X)
                 {
                     if (e.Y > startPos.Y)
                     {
