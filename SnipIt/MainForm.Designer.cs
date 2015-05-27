@@ -100,7 +100,7 @@
             // ctxmenuPrint
             // 
             this.ctxmenuPrint.Name = "ctxtmenuPrint";
-            this.ctxmenuPrint.Size = new System.Drawing.Size(153, 26);
+            this.ctxmenuPrint.Size = new System.Drawing.Size(61, 4);
             this.ctxmenuPrint.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ctxmenuPrint_ItemClicked);
             // 
             // btnCopy
@@ -201,7 +201,7 @@
             this.ResetToolStripMenuItem,
             this.ThicknessToolStripComboBox});
             this.ctxmenuEdit.Name = "ctxmenuEdit";
-            this.ctxmenuEdit.Size = new System.Drawing.Size(182, 191);
+            this.ctxmenuEdit.Size = new System.Drawing.Size(182, 213);
             // 
             // NoToolStripMenuItem
             // 
@@ -424,6 +424,7 @@
             // 
             // ResetToolStripMenuItem
             // 
+            this.ResetToolStripMenuItem.Enabled = false;
             this.ResetToolStripMenuItem.Name = "ResetToolStripMenuItem";
             this.ResetToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.ResetToolStripMenuItem.Text = "Reset";

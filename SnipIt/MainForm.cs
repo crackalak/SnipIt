@@ -431,6 +431,8 @@ namespace SnipIt
                     }
 
                     this.TopMost = true;
+                    UndoToolStripMenuItem.Enabled = true;
+                    ResetToolStripMenuItem.Enabled = true;
                 }
                 else
                 {
@@ -473,6 +475,7 @@ namespace SnipIt
 
                 PictureBox1.Invalidate();
                 UndoToolStripMenuItem.Enabled = true;
+                ResetToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -621,6 +624,7 @@ namespace SnipIt
             undoStack.Clear();
 
             PictureBox1.Image = (Image)originalImage.Clone();
+            UndoToolStripMenuItem.Enabled = false;
             ResetToolStripMenuItem.Enabled = false;
         }
 
@@ -634,6 +638,7 @@ namespace SnipIt
                 if (undoStack.Count == 0)
                 {
                     UndoToolStripMenuItem.Enabled = false;
+                    ResetToolStripMenuItem.Enabled = false;
                 }
             }
         }
@@ -660,7 +665,6 @@ namespace SnipIt
                 ResetEditToolStrip();
 
                 TextEntryToolStripMenuItem.Checked = true;
-                UndoToolStripMenuItem.Enabled = true;
             }
         }
 
