@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.cmdprint = new System.Windows.Forms.Button();
-            this.ctxtmenuPrint = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmdcopy = new System.Windows.Forms.Button();
-            this.ctxtmenuCopy = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.ctxmenuPrint = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnCopy = new System.Windows.Forms.Button();
+            this.ctxmenuCopy = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.PasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmdsave = new System.Windows.Forms.Button();
-            this.cmdnew = new System.Windows.Forms.Button();
-            this.ctxtmenuNew = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.ctxmenuNew = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MultiSnipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.ClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,49 +78,49 @@
             this.ThicknessToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.PrintDocument1 = new System.Drawing.Printing.PrintDocument();
             this.PictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ctxtmenuCopy.SuspendLayout();
-            this.ctxtmenuNew.SuspendLayout();
+            this.ctxmenuCopy.SuspendLayout();
+            this.ctxmenuNew.SuspendLayout();
             this.ctxmenuEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // cmdprint
+            // btnPrint
             // 
-            this.cmdprint.ContextMenuStrip = this.ctxtmenuPrint;
-            this.cmdprint.Font = new System.Drawing.Font("Arial", 7.854546F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdprint.Location = new System.Drawing.Point(198, 5);
-            this.cmdprint.Name = "cmdprint";
-            this.cmdprint.Size = new System.Drawing.Size(65, 24);
-            this.cmdprint.TabIndex = 8;
-            this.cmdprint.Text = "Print";
-            this.cmdprint.UseVisualStyleBackColor = true;
-            this.cmdprint.Click += new System.EventHandler(this.cmdprint_Click);
-            this.cmdprint.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cmdprint_MouseDown);
+            this.btnPrint.ContextMenuStrip = this.ctxmenuPrint;
+            this.btnPrint.Font = new System.Drawing.Font("Arial", 7.854546F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrint.Location = new System.Drawing.Point(198, 5);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(65, 24);
+            this.btnPrint.TabIndex = 8;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            this.btnPrint.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnPrint_MouseDown);
             // 
-            // ctxtmenuPrint
+            // ctxmenuPrint
             // 
-            this.ctxtmenuPrint.Name = "ctxtmenuPrint";
-            this.ctxtmenuPrint.Size = new System.Drawing.Size(61, 4);
-            this.ctxtmenuPrint.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ctxtmenuPrint_ItemClicked);
+            this.ctxmenuPrint.Name = "ctxtmenuPrint";
+            this.ctxmenuPrint.Size = new System.Drawing.Size(153, 26);
+            this.ctxmenuPrint.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ctxmenuPrint_ItemClicked);
             // 
-            // cmdcopy
+            // btnCopy
             // 
-            this.cmdcopy.ContextMenuStrip = this.ctxtmenuCopy;
-            this.cmdcopy.Font = new System.Drawing.Font("Arial", 7.854546F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdcopy.Location = new System.Drawing.Point(68, 5);
-            this.cmdcopy.Name = "cmdcopy";
-            this.cmdcopy.Size = new System.Drawing.Size(65, 24);
-            this.cmdcopy.TabIndex = 7;
-            this.cmdcopy.Text = "Copy";
-            this.cmdcopy.UseVisualStyleBackColor = true;
-            this.cmdcopy.Click += new System.EventHandler(this.cmdcopy_Click);
+            this.btnCopy.ContextMenuStrip = this.ctxmenuCopy;
+            this.btnCopy.Font = new System.Drawing.Font("Arial", 7.854546F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCopy.Location = new System.Drawing.Point(68, 5);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(65, 24);
+            this.btnCopy.TabIndex = 7;
+            this.btnCopy.Text = "Copy";
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
-            // ctxtmenuCopy
+            // ctxmenuCopy
             // 
-            this.ctxtmenuCopy.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ctxmenuCopy.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.PasteToolStripMenuItem});
-            this.ctxtmenuCopy.Name = "ctxtmenuCopy";
-            this.ctxtmenuCopy.Size = new System.Drawing.Size(103, 26);
+            this.ctxmenuCopy.Name = "ctxtmenuCopy";
+            this.ctxmenuCopy.Size = new System.Drawing.Size(103, 26);
             // 
             // PasteToolStripMenuItem
             // 
@@ -129,38 +129,38 @@
             this.PasteToolStripMenuItem.Text = "Paste";
             this.PasteToolStripMenuItem.Click += new System.EventHandler(this.PasteToolStripMenuItem_Click);
             // 
-            // cmdsave
+            // btnSave
             // 
-            this.cmdsave.Font = new System.Drawing.Font("Arial", 7.854546F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdsave.Location = new System.Drawing.Point(133, 5);
-            this.cmdsave.Name = "cmdsave";
-            this.cmdsave.Size = new System.Drawing.Size(65, 24);
-            this.cmdsave.TabIndex = 6;
-            this.cmdsave.Text = "Save";
-            this.cmdsave.UseVisualStyleBackColor = true;
-            this.cmdsave.Click += new System.EventHandler(this.cmdsave_Click);
+            this.btnSave.Font = new System.Drawing.Font("Arial", 7.854546F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Location = new System.Drawing.Point(133, 5);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(65, 24);
+            this.btnSave.TabIndex = 6;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // cmdnew
+            // btnNew
             // 
-            this.cmdnew.ContextMenuStrip = this.ctxtmenuNew;
-            this.cmdnew.Font = new System.Drawing.Font("Arial", 7.854546F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdnew.Location = new System.Drawing.Point(3, 5);
-            this.cmdnew.Name = "cmdnew";
-            this.cmdnew.Size = new System.Drawing.Size(65, 24);
-            this.cmdnew.TabIndex = 5;
-            this.cmdnew.Text = "New";
-            this.cmdnew.UseVisualStyleBackColor = true;
-            this.cmdnew.Click += new System.EventHandler(this.cmdnew_Click);
+            this.btnNew.ContextMenuStrip = this.ctxmenuNew;
+            this.btnNew.Font = new System.Drawing.Font("Arial", 7.854546F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNew.Location = new System.Drawing.Point(3, 5);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(65, 24);
+            this.btnNew.TabIndex = 5;
+            this.btnNew.Text = "New";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
-            // ctxtmenuNew
+            // ctxmenuNew
             // 
-            this.ctxtmenuNew.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ctxmenuNew.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MultiSnipToolStripMenuItem,
             this.ToolStripMenuItem1,
             this.ClearToolStripMenuItem,
             this.AutoClearToolStripMenuItem});
-            this.ctxtmenuNew.Name = "ctxtmenuNew";
-            this.ctxtmenuNew.Size = new System.Drawing.Size(131, 76);
+            this.ctxmenuNew.Name = "ctxtmenuNew";
+            this.ctxmenuNew.Size = new System.Drawing.Size(131, 76);
             // 
             // MultiSnipToolStripMenuItem
             // 
@@ -465,10 +465,10 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(266, 32);
             this.Controls.Add(this.PictureBox1);
-            this.Controls.Add(this.cmdprint);
-            this.Controls.Add(this.cmdcopy);
-            this.Controls.Add(this.cmdsave);
-            this.Controls.Add(this.cmdnew);
+            this.Controls.Add(this.btnPrint);
+            this.Controls.Add(this.btnCopy);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnNew);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -477,9 +477,8 @@
             this.Text = "SnipIt";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Resize += new System.EventHandler(this.MainForm_Resize);
-            this.ctxtmenuCopy.ResumeLayout(false);
-            this.ctxtmenuNew.ResumeLayout(false);
+            this.ctxmenuCopy.ResumeLayout(false);
+            this.ctxmenuNew.ResumeLayout(false);
             this.ctxmenuEdit.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -489,10 +488,10 @@
 
         #endregion
 
-        internal System.Windows.Forms.Button cmdprint;
-        internal System.Windows.Forms.Button cmdcopy;
-        internal System.Windows.Forms.Button cmdsave;
-        internal System.Windows.Forms.Button cmdnew;
+        internal System.Windows.Forms.Button btnPrint;
+        internal System.Windows.Forms.Button btnCopy;
+        internal System.Windows.Forms.Button btnSave;
+        internal System.Windows.Forms.Button btnNew;
         internal System.Windows.Forms.SaveFileDialog SaveFileDialog1;
         internal System.Windows.Forms.FontDialog FontDialog1;
         internal System.Windows.Forms.ColorDialog ColorDialog1;
@@ -527,10 +526,10 @@
         internal System.Windows.Forms.ToolStripMenuItem UndoToolStripMenuItem;
         internal System.Windows.Forms.ToolStripMenuItem ResetToolStripMenuItem;
         internal System.Windows.Forms.ToolStripComboBox ThicknessToolStripComboBox;
-        internal System.Windows.Forms.ContextMenuStrip ctxtmenuCopy;
+        internal System.Windows.Forms.ContextMenuStrip ctxmenuCopy;
         internal System.Windows.Forms.ToolStripMenuItem PasteToolStripMenuItem;
-        internal System.Windows.Forms.ContextMenuStrip ctxtmenuPrint;
-        internal System.Windows.Forms.ContextMenuStrip ctxtmenuNew;
+        internal System.Windows.Forms.ContextMenuStrip ctxmenuPrint;
+        internal System.Windows.Forms.ContextMenuStrip ctxmenuNew;
         internal System.Windows.Forms.ToolStripMenuItem MultiSnipToolStripMenuItem;
         internal System.Windows.Forms.ToolStripSeparator ToolStripMenuItem1;
         internal System.Windows.Forms.ToolStripMenuItem ClearToolStripMenuItem;

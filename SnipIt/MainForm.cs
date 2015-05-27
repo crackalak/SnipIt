@@ -56,44 +56,37 @@ namespace SnipIt
                 }
             }
 
-            // add installed printers to menustrip
-            // set the default printer to be checked in the menu strip
-            for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
-            {
-                string findPrinter = PrinterSettings.InstalledPrinters[i];
-                ToolStripItem currentItem = ctxtmenuPrint.Items.Add(findPrinter);
-                if (PrintDocument1.PrinterSettings.PrinterName == findPrinter)
-                {
-                    ToolStripMenuItem defaultPrinterMenu = (ToolStripMenuItem)currentItem;
-                    defaultPrinterMenu.Checked = true;
-                }
-            }
-
-            for (int i = 1; i < 11; i++)
-            {
-                ThicknessToolStripComboBox.Items.Add("Thickness: " + i.ToString());
-            }
-            ThicknessToolStripComboBox.SelectedIndex = 0;
+            LoadPrinters();
+            LoadCombos();
 
             this.TopMost = true;
 
             undoStack = new Stack<Image>();
         }
 
-        private void MainForm_Resize(object sender, EventArgs e)
+        private void LoadPrinters()
         {
-            //if (this == Program.ControllerForm)
-            //{
-            //    // minimise each open form at the same time
-            //    foreach (Form item in Application.OpenForms)
-            //    {
-            //        // ignore the main form with asterisk as the tag
-            //        if (item != this)
-            //        {
-            //            item.Visible = !item.Visible;
-            //        }
-            //    }
-            //}
+            // add installed printers to menustrip
+            // set the default printer to be checked in the menu strip
+            for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
+            {
+                string findPrinter = PrinterSettings.InstalledPrinters[i];
+                ToolStripItem currentItem = ctxmenuPrint.Items.Add(findPrinter);
+                if (PrintDocument1.PrinterSettings.PrinterName == findPrinter)
+                {
+                    ToolStripMenuItem defaultPrinterMenu = (ToolStripMenuItem)currentItem;
+                    defaultPrinterMenu.Checked = true;
+                }
+            }
+        }
+
+        private void LoadCombos()
+        {
+            for (int i = 1; i < 11; i++)
+            {
+                ThicknessToolStripComboBox.Items.Add("Thickness: " + i.ToString());
+            }
+            ThicknessToolStripComboBox.SelectedIndex = 0;
         }
 
         private void MultiSnipToolStripMenuItem_Click(object sender, EventArgs e)
@@ -133,7 +126,69 @@ namespace SnipIt
             CloseSubForms();
         }
 
-        private void cmdcopy_Click(object sender, EventArgs e)
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            // hide snip forms if in multisnip mode, otherwise close them
+            if (Program.MultiSnip)
+            {
+                foreach (Form item in Application.OpenForms)
+                {
+                    item.Hide();
+                }
+                undoStack = new Stack<Image>();
+            }
+            else
+            {
+                this.Hide();
+                // close the sub forms after switching from multi to single
+                ClearAll();
+            }
+
+            UndoToolStripMenuItem.Enabled = false;
+
+            //show capture form
+            using (CaptureForm capture = new CaptureForm())
+            {
+                if (capture.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    MainForm snipForm;
+
+                    if (Program.MultiSnip)
+                    {
+                        snipForm = new MainForm();
+                        snipForm.ShowInTaskbar = false;
+                        snipForm.btnNew.Enabled = false;
+                        Program.ControllerForm.Text = "SnipIt - Main";
+                    }
+                    else
+                    {
+                        snipForm = Program.ControllerForm;
+                        snipForm.Text = "SnipIt";
+                    }
+
+                    // load captured image
+                    snipForm.PictureBox1.Image = capture.ImageCaptured;
+                    snipForm.PictureBox1.Visible = true;
+
+                    // hold original image
+                    snipForm.originalImage = capture.ImageCaptured;
+
+                    // show new form to top left of current snip position
+                    snipForm.StartPosition = FormStartPosition.Manual;
+                    snipForm.Location = capture.PanelPosition;
+
+                    snipForm.Show();
+                }
+
+                // show each snip and set non main settings
+                foreach (Form showForm in Application.OpenForms)
+                {
+                    showForm.Show();
+                }
+            }
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
         {
             if (PictureBox1.Image != null)
             {
@@ -144,7 +199,7 @@ namespace SnipIt
             }
         }
 
-        private void cmdsave_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             if (PictureBox1.Image != null)
             {
@@ -187,7 +242,7 @@ namespace SnipIt
             }
         }
 
-        private void cmdprint_Click(object sender, EventArgs e)
+        private void btnPrint_Click(object sender, EventArgs e)
         {
             if (PictureBox1.Image != null)
             {
@@ -227,6 +282,22 @@ namespace SnipIt
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnPrint_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                if (!string.IsNullOrEmpty(Program.LastPrinterName))
+                {
+                    // check the previously selected printer
+                    // could have been selected in a different form
+                    foreach (ToolStripMenuItem item in ctxmenuPrint.Items)
+                    {
+                        item.Checked = item.Text == Program.LastPrinterName ? true : false;
+                    }
                 }
             }
         }
@@ -278,25 +349,9 @@ namespace SnipIt
             }
         }
 
-        private void cmdprint_MouseDown(object sender, MouseEventArgs e)
+        private void ctxmenuPrint_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                if (!string.IsNullOrEmpty(Program.LastPrinterName))
-                {
-                    // check the previously selected printer
-                    // could have been selected in a different form
-                    foreach (ToolStripMenuItem item in ctxtmenuPrint.Items)
-                    {
-                        item.Checked = item.Text == Program.LastPrinterName ? true : false;
-                    }
-                }
-            }
-        }
-
-        private void ctxtmenuPrint_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            foreach (ToolStripMenuItem item in ctxtmenuPrint.Items)
+            foreach (ToolStripMenuItem item in ctxmenuPrint.Items)
             {
                 if (item.Text == e.ClickedItem.Text)
                 {
@@ -326,14 +381,6 @@ namespace SnipIt
                 // fix for form not autoscaling after picture size has changed
                 this.Invalidate();
                 this.PerformAutoScale();
-                
-                // change main form dimensions for new capture
-                //this.Height = this.Height + PictureBox1.Height + 5;
-                //this.Width = PictureBox1.Width + 12;
-
-                //// change panel container dimensions for border around piturebox
-                //Panel1.Width = this.Width - 6;
-                //Panel1.Height = this.Height - 32;
             }
         }
 
@@ -363,18 +410,24 @@ namespace SnipIt
                 {
                     this.TopMost = false;
 
-                    // TODO Add inputbox class
-                    string textEntry = "";
-
-                    if (!string.IsNullOrEmpty(textEntry))
+                    using (InputBox inp = new InputBox())
                     {
-                        // draw the text over the image
-                        Graphics g = Graphics.FromImage(PictureBox1.Image);
+                        inp.Title = "Text Entry";
+                        inp.Prompt = "Enter text to add:";
 
-                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                        g.DrawString(textEntry, drawingFont, new SolidBrush(drawingFontColor), e.Location);
+                        if (inp.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            if (!string.IsNullOrEmpty(inp.Entry))
+                            {
+                                // draw the text over the image
+                                Graphics g = Graphics.FromImage(PictureBox1.Image);
 
-                        PictureBox1.Invalidate();
+                                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                                g.DrawString(inp.Entry, drawingFont, new SolidBrush(drawingFontColor), e.Location);
+
+                                PictureBox1.Invalidate();
+                            }
+                        }
                     }
 
                     this.TopMost = true;
@@ -613,84 +666,13 @@ namespace SnipIt
 
         private void CloseSubForms()
         {
-            // can't use for each here because the collection gets modified
+            // can't use foreach here because the collection gets modified
             // with the close method
             for (int i = Application.OpenForms.Count - 1; i > -1; i--)
             {
                 if (Application.OpenForms[i] != Program.ControllerForm)
                 {
                     Application.OpenForms[i].Close();
-                }
-            }
-        }
-
-        private void cmdnew_Click(object sender, EventArgs e)
-        {
-            // hide snip forms if in multisnip mode, otherwise close them
-            if (Program.MultiSnip)
-            {
-                foreach (Form item in Application.OpenForms)
-                {
-                    item.Hide();
-                }
-
-                if (autoClear)
-                {
-                    this.PictureBox1.Image = null;
-                    this.PictureBox1.Visible = false;
-                }
-            }
-            else
-            {
-                // close the sub forms after switching from multi to single
-                CloseSubForms();   
-
-                this.PictureBox1.Image = null;
-                this.PictureBox1.Visible = false;
-                this.Hide();
-            }
-
-            undoStack = new Stack<Image>();
-            UndoToolStripMenuItem.Enabled = false;
-
-            //show capture form
-            using (CaptureForm capture = new CaptureForm())
-            {
-                if (capture.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    MainForm snipForm;
-
-                    if (Program.MultiSnip) 
-                    {
-                        snipForm = new MainForm();
-                        snipForm.ShowInTaskbar = false;
-                        snipForm.cmdnew.Enabled = false;
-                        Program.ControllerForm.Text = "SnipIt - Main";
-                    }
-                    else
-                    {
-                        snipForm = Program.ControllerForm;
-                        snipForm.Text = "SnipIt";
-                    }
-
-                    // load captured image
-                    snipForm.PictureBox1.Image = capture.ImageCaptured;
-                    snipForm.PictureBox1.Visible = true;
-                    
-                    // hold original image
-                    snipForm.originalImage = capture.ImageCaptured;
-
-                    // show new form to top left of current snip position
-                    snipForm.StartPosition = FormStartPosition.Manual;
-                    snipForm.Location = capture.PanelPosition;
-
-                    snipForm.Show();
-                }
-
-                // show each snip and set non main settings
-                foreach (Form showForm in Application.OpenForms)
-                {
-                    showForm.Show();
                 }
             }
         }
