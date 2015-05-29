@@ -38,6 +38,8 @@ namespace SnipIt
         private Color drawingFontColor;
         private Stack<Image> undoStack;
 
+        const string ImageFileFilter = "Image Files (*.bmp;*.jpg;*.jpeg;*.png)|*.bmp;*.jpg;*.png|Bitmap Images (*.bmp)|*.bmp|JPEG Images (*.jpg;*.jpeg)|*.jpg;*.jpeg|PNG Images (*.png)|*.png";
+
         #endregion
 
         public MainForm()
@@ -206,7 +208,7 @@ namespace SnipIt
                 try
                 {
                     SaveFileDialog1.CheckPathExists = true;
-                    SaveFileDialog1.Filter = "Bitmap Images (*.bmp)|*.bmp|JPEG Images (*.jpg)|*.jpg|PNG Images (*.png)|*.png";
+                    SaveFileDialog1.Filter = "Bitmap Images (*.bmp)|*.bmp|JPEG Images (*.jpg;*.jpeg)|*.jpg;*.jpeg|PNG Images (*.png)|*.png";
                     SaveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
                     SaveFileDialog1.ShowDialog();
                     if (!string.IsNullOrEmpty(SaveFileDialog1.FileName))
@@ -683,7 +685,7 @@ namespace SnipIt
                 using (OpenFileDialog ofd = new OpenFileDialog())
                 {
                     ofd.CheckFileExists = true;
-                    ofd.Filter = "Bitmap Images (*.bmp)|*.bmp|JPEG Images (*.jpg)|*.jpg|PNG Images (*.png)|*.png";
+                    ofd.Filter = ImageFileFilter;
                     ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
                     if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) 
