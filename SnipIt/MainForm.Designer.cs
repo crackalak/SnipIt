@@ -78,9 +78,9 @@
             this.btnPrint = new SnipIt.SplitButton();
             this.btnCopy = new SnipIt.SplitButton();
             this.btnSave = new SnipIt.SplitButton();
-            this.btnNew = new SnipIt.SplitButton();
             this.ctxmenuSave = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnNew = new SnipIt.SplitButton();
             this.ctxmenuCopy.SuspendLayout();
             this.ctxmenuNew.SuspendLayout();
             this.ctxmenuEdit.SuspendLayout();
@@ -460,6 +460,20 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // ctxmenuSave
+            // 
+            this.ctxmenuSave.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadToolStripMenuItem});
+            this.ctxmenuSave.Name = "ctxmenuSave";
+            this.ctxmenuSave.Size = new System.Drawing.Size(101, 26);
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
             // btnNew
             // 
             this.btnNew.ContextMenuStrip = this.ctxmenuNew;
@@ -472,20 +486,6 @@
             this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
-            // ctxmenuSave
-            // 
-            this.ctxmenuSave.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadToolStripMenuItem});
-            this.ctxmenuSave.Name = "ctxmenuSave";
-            this.ctxmenuSave.Size = new System.Drawing.Size(153, 48);
-            // 
-            // loadToolStripMenuItem
-            // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.loadToolStripMenuItem.Text = "Load";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -502,7 +502,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(278, 58);
+            this.MinimumSize = new System.Drawing.Size(282, 71);
             this.Name = "MainForm";
             this.Text = "SnipIt";
             this.TopMost = true;

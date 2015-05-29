@@ -703,14 +703,14 @@ namespace SnipIt
 
         private void LoadExternalImage(Image img)
         {
+            this.SuspendLayout();
+
             PictureBox1.Image = img;
             PictureBox1.Visible = true;
             originalImage = PictureBox1.Image;
             undoStack = new Stack<Image>();
 
-            // fix for form not autoscaling after picture size has changed
-            this.Invalidate();
-            this.PerformAutoScale();
+            this.ResumeLayout();
         }
     }
 }
