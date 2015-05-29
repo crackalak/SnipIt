@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace SnipIt
 {
@@ -16,7 +17,6 @@ namespace SnipIt
     {
         #region variables
 
-        private string selPrinter;
         private bool autoClear;
         private bool debugMode;
 
@@ -375,12 +375,7 @@ namespace SnipIt
             if (Clipboard.ContainsImage())
             {
                 // get image from clipboard and load
-                PictureBox1.Image = Clipboard.GetImage();
-                PictureBox1.Visible = true;
-
-                // fix for form not autoscaling after picture size has changed
-                this.Invalidate();
-                this.PerformAutoScale();
+                LoadExternalImage(Clipboard.GetImage());
             }
         }
 
@@ -679,6 +674,41 @@ namespace SnipIt
                     Application.OpenForms[i].Close();
                 }
             }
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog ofd = new OpenFileDialog())
+                {
+                    ofd.CheckFileExists = true;
+                    ofd.Filter = "Bitmap Images (*.bmp)|*.bmp|JPEG Images (*.jpg)|*.jpg|PNG Images (*.png)|*.png";
+                    ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+
+                    if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) 
+                    {
+                        // image file will be locked until ClearAll is called
+                        LoadExternalImage(Image.FromFile(ofd.FileName));
+                    }
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Invalid Image Format", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void LoadExternalImage(Image img)
+        {
+            PictureBox1.Image = img;
+            PictureBox1.Visible = true;
+            originalImage = PictureBox1.Image;
+            undoStack = new Stack<Image>();
+
+            // fix for form not autoscaling after picture size has changed
+            this.Invalidate();
+            this.PerformAutoScale();
         }
     }
 }
