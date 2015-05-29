@@ -2,9 +2,9 @@
 *.suo
 *.sln.cache
 Debug/
-Output/
 [oO]bj/
 *.xap
 _ReSharper.*
 TestResults/
 Published/
+/SnipIt/images/Thumbs.db
