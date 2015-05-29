@@ -71,11 +71,12 @@
             this.EllipseBlueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EllipseYellowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EllipseCustomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TextEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ThicknessToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.TextEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.UndoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ThicknessToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.PrintDocument1 = new System.Drawing.Printing.PrintDocument();
             this.PictureBox1 = new System.Windows.Forms.PictureBox();
             this.ctxmenuCopy.SuspendLayout();
@@ -195,13 +196,14 @@
             this.LineToolStripMenuItem,
             this.RectToolStripMenuItem,
             this.EllipseToolStripMenuItem,
-            this.TextEntryToolStripMenuItem,
+            this.ThicknessToolStripComboBox,
             this.ToolStripSeparator1,
+            this.TextEntryToolStripMenuItem,
+            this.toolStripSeparator2,
             this.UndoToolStripMenuItem,
-            this.ResetToolStripMenuItem,
-            this.ThicknessToolStripComboBox});
+            this.ResetToolStripMenuItem});
             this.ctxmenuEdit.Name = "ctxmenuEdit";
-            this.ctxmenuEdit.Size = new System.Drawing.Size(182, 213);
+            this.ctxmenuEdit.Size = new System.Drawing.Size(182, 197);
             // 
             // NoToolStripMenuItem
             // 
@@ -402,6 +404,18 @@
             this.EllipseCustomToolStripMenuItem.Text = "Custom";
             this.EllipseCustomToolStripMenuItem.Click += new System.EventHandler(this.EllipseColorToolStripMenuItem_Click);
             // 
+            // ThicknessToolStripComboBox
+            // 
+            this.ThicknessToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ThicknessToolStripComboBox.Name = "ThicknessToolStripComboBox";
+            this.ThicknessToolStripComboBox.Size = new System.Drawing.Size(121, 23);
+            this.ThicknessToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.ThicknessToolStripComboBox_SelectedIndexChanged);
+            // 
+            // ToolStripSeparator1
+            // 
+            this.ToolStripSeparator1.Name = "ToolStripSeparator1";
+            this.ToolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            // 
             // TextEntryToolStripMenuItem
             // 
             this.TextEntryToolStripMenuItem.Name = "TextEntryToolStripMenuItem";
@@ -409,10 +423,10 @@
             this.TextEntryToolStripMenuItem.Text = "Text Entry";
             this.TextEntryToolStripMenuItem.Click += new System.EventHandler(this.TextEntryToolStripMenuItem_Click);
             // 
-            // ToolStripSeparator1
+            // toolStripSeparator2
             // 
-            this.ToolStripSeparator1.Name = "ToolStripSeparator1";
-            this.ToolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
             // 
             // UndoToolStripMenuItem
             // 
@@ -429,13 +443,6 @@
             this.ResetToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.ResetToolStripMenuItem.Text = "Reset";
             this.ResetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
-            // 
-            // ThicknessToolStripComboBox
-            // 
-            this.ThicknessToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ThicknessToolStripComboBox.Name = "ThicknessToolStripComboBox";
-            this.ThicknessToolStripComboBox.Size = new System.Drawing.Size(121, 23);
-            this.ThicknessToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.ThicknessToolStripComboBox_SelectedIndexChanged);
             // 
             // PrintDocument1
             // 
@@ -537,6 +544,7 @@
         internal System.Windows.Forms.ToolStripMenuItem AutoClearToolStripMenuItem;
         internal System.Drawing.Printing.PrintDocument PrintDocument1;
         internal System.Windows.Forms.PictureBox PictureBox1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 
