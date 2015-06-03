@@ -450,6 +450,36 @@ namespace SnipIt
 
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
+                float startX = 0, startY = 0;
+                float drawWidth = 0, drawHeight = 0;
+
+                // work out drawing direction
+                if (e.X > previousMousePos.Value.X)
+                {
+                    // right
+                    drawWidth = e.X - previousMousePos.Value.X;
+                    startX = previousMousePos.Value.X;
+                }
+                else
+                {
+                    // left
+                    drawWidth = previousMousePos.Value.X - e.X;
+                    startX = e.X;
+                }
+
+                if (e.Y > previousMousePos.Value.Y)
+                {
+                    // down
+                    drawHeight = e.Y - previousMousePos.Value.Y;
+                    startY = previousMousePos.Value.Y;
+                }
+                else
+                {
+                    // up
+                    drawHeight = previousMousePos.Value.Y - e.Y;
+                    startY = e.Y;
+                }
+
                 switch (drawingType)
                 {
                     case drawEnum.Line:
@@ -457,12 +487,12 @@ namespace SnipIt
                         g.DrawLine(drawingPen, previousMousePos.Value, e.Location);
                         break;
                     case drawEnum.Rect:
-                        
-                        g.DrawRectangle(drawingPen, previousMousePos.Value.X, previousMousePos.Value.Y, e.X - previousMousePos.Value.X, e.Y - previousMousePos.Value.Y);
+
+                        g.DrawRectangle(drawingPen, startX, startY, drawWidth, drawHeight);
                         break;
                     case drawEnum.Ellipse:
 
-                        g.DrawEllipse(drawingPen, previousMousePos.Value.X, previousMousePos.Value.Y, e.X - previousMousePos.Value.X, e.Y - previousMousePos.Value.Y);
+                        g.DrawEllipse(drawingPen, startX, startY, drawWidth, drawHeight);
                         break;
                     default:
 
