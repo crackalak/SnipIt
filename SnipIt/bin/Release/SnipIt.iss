@@ -1,27 +1,26 @@
-; replace awh with progroot throughout script
 [Setup]
 
 #define MyAppName "SnipIt"
 #define MyAppPublisher "Rizzen"
 #define MyAppExeName "SnipIt.exe"
 
+AppPublisher={#MyAppPublisher}
 ; this is the name that will appear in the install program as the name
 ; of the program being installed
-appname=SnipIt
+appname={#MyAppName}
 
 ; this only appears during installation
-appvername=SnipIt
+appvername={#MyAppName}
 
 ; this is the name of the directory that the program will be installed
 ; on on the clients machine. {sd} = system drive on the target machine
 ; would expect this to be c:
-defaultdirname={pf}\SnipIt
-
-; inhibits the display of the directory the program is to be istalled in
-; during installation
-disabledirpage=yes
+defaultdirname={pf}\{#MyAppName}
 
 setuplogging=yes
+
+SetupIconFile=..\..\images\{#MyAppName}.ico
+OutputBaseFilename={#MyAppName}_Setup
 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
@@ -30,9 +29,9 @@ Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:Ad
 ; {app}
 [Files]
 ; Main program files
-source: SnipIt.exe; destdir: {app}
-source: ..\..\images\snipit.ico; destdir: {app}
+source: {#MyAppExeName}; destdir: {app}
+source: ..\..\images\{#MyAppName}.ico; destdir: {app}
 
 [Icons]
-Name: {commonprograms}\Rizzen\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\snipit.ico
-Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; Tasks: desktopicon; IconFilename: {app}\snipit.ico
+Name: {commonprograms}\Rizzen\{#MyAppName}; Filename: {app}\{#MyAppExeName}; IconFilename: {app}\{#MyAppName}.ico
+Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; Tasks: desktopicon; IconFilename: {app}\{#MyAppName}.ico
