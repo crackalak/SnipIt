@@ -311,7 +311,7 @@ namespace SnipIt
             int pageHeight = (int)((e.PageBounds.Height - imageMargin * 2) / 100 * PictureBox1.Image.VerticalResolution);
 
             // check if the image is bigger than can fit on the page
-            if (pageWidth < PictureBox1.Image.Width || pageWidth < PictureBox1.Image.Height)
+            if (pageWidth < PictureBox1.Image.Width || pageHeight < PictureBox1.Image.Height)
             {
                 // get a rectangle indicating the portion of the image we want to print
                 Rectangle imageRect = new Rectangle(lastImagePrintPos, new Size(pageWidth, pageHeight));
