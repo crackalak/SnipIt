@@ -62,7 +62,7 @@ namespace SnipIt
             LoadCombos();
 
             this.TopMost = true;
-
+            
             undoStack = new Stack<Image>();
         }
 

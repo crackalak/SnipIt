@@ -12,6 +12,15 @@ namespace SnipIt
         Rectangle dropDownRectangle;
         bool openMenu = false;
 
+        int dpiScale = 1;
+
+        public SplitButton()
+        {
+            Graphics gfx = this.CreateGraphics();
+
+            dpiScale = (int)(gfx.DpiX / 96);
+        }
+
         void ContextMenuStrip_Closed(object sender, ToolStripDropDownClosedEventArgs e)
         {
             if (e.CloseReason == ToolStripDropDownCloseReason.ItemClicked || !dropDownRectangle.Contains(PointToClient(Cursor.Position)))
@@ -29,12 +38,14 @@ namespace SnipIt
             Graphics g = pevent.Graphics;
 
             Rectangle bounds = this.ClientRectangle;
+
+            int sectionWidth = SplitSectionWidth * dpiScale;
             
-            dropDownRectangle = new Rectangle(bounds.Right - SplitSectionWidth, 0, SplitSectionWidth, bounds.Height);
+            dropDownRectangle = new Rectangle(bounds.Right - sectionWidth, 0, sectionWidth, bounds.Height);
 
             // draw two lines at the edge of the dropdown button
-            g.DrawLine(SystemPens.ButtonShadow, bounds.Right - SplitSectionWidth, BorderSize, bounds.Right - SplitSectionWidth, bounds.Bottom - BorderSize);
-            g.DrawLine(SystemPens.ButtonFace, bounds.Right - SplitSectionWidth - 1, BorderSize, bounds.Right - SplitSectionWidth - 1, bounds.Bottom - BorderSize);
+            g.DrawLine(SystemPens.ButtonShadow, bounds.Right - sectionWidth, BorderSize, bounds.Right - sectionWidth, bounds.Bottom - BorderSize);
+            g.DrawLine(SystemPens.ButtonFace, bounds.Right - sectionWidth - 1, BorderSize, bounds.Right - sectionWidth - 1, bounds.Bottom - BorderSize);
 
             PaintArrow(g, dropDownRectangle);
         }
@@ -46,7 +57,12 @@ namespace SnipIt
             //if the width is odd - favor pushing it over one pixel right.
             middle.X += (dropDownRect.Width % 2);
 
-            Point[] arrow = new[] { new Point(middle.X - 2, middle.Y - 1), new Point(middle.X + 3, middle.Y - 1), new Point(middle.X, middle.Y + 2) };
+            Point[] arrow = new[] 
+            {
+                new Point(middle.X - 4 * dpiScale, middle.Y - 1 * dpiScale),
+                new Point(middle.X + 4 * dpiScale, middle.Y - 1 * dpiScale),
+                new Point(middle.X, middle.Y + 3 * dpiScale)
+            };
 
             g.FillPolygon(SystemBrushes.ControlText, arrow);
         }
