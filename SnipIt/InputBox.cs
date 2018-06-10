@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SnipIt
@@ -29,12 +24,14 @@ namespace SnipIt
         {
             if (this.SelectOption && this.Options.Length != 0)
             {
-                flow = new FlowLayoutPanel();
-                flow.AutoSize = true;
-                flow.Top = txtEntry.Top + txtEntry.Height;
-                flow.Left = txtEntry.Left;
-                flow.FlowDirection = FlowDirection.LeftToRight;
-                flow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+                flow = new FlowLayoutPanel
+                {
+                    AutoSize = true,
+                    Top = txtEntry.Top + txtEntry.Height,
+                    Left = txtEntry.Left,
+                    FlowDirection = FlowDirection.LeftToRight,
+                    AutoSizeMode = AutoSizeMode.GrowAndShrink
+                };
 
                 foreach (string option in this.Options)
                 {

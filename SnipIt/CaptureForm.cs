@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SnipIt
@@ -65,7 +59,7 @@ namespace SnipIt
         private void Close_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.Default;
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
@@ -78,7 +72,7 @@ namespace SnipIt
             }
 
             // reset the selection panel size and position
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 this.selPanel.Size = new Size(0, 0);
                 this.selPanel.Location = e.Location;
@@ -92,7 +86,7 @@ namespace SnipIt
         private void CaptureForm_MouseMove(object sender, MouseEventArgs e)
         {
             // selection is being made, resize and reposition the panel
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 if (e.X > startPos.X)
                 {
@@ -132,7 +126,7 @@ namespace SnipIt
 
         private void CaptureForm_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 if (this.Controls.Contains(this.selPanel))
                 {
@@ -153,7 +147,7 @@ namespace SnipIt
                             
                             Cursor = Cursors.Default;
 
-                            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                            this.DialogResult = DialogResult.OK;
                             this.Close();
                         }
                     }

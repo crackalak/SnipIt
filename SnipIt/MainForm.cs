@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 
 namespace SnipIt
 {
@@ -151,7 +145,7 @@ namespace SnipIt
             //show capture form
             using (CaptureForm capture = new CaptureForm())
             {
-                if (capture.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (capture.ShowDialog() == DialogResult.OK)
                 {
                     MainForm snipForm;
 
@@ -290,7 +284,7 @@ namespace SnipIt
 
         private void btnPrint_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
                 if (!string.IsNullOrEmpty(Program.LastPrinterName))
                 {
@@ -398,7 +392,7 @@ namespace SnipIt
 
         private void PictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left && NoToolStripMenuItem.Checked == false)
+            if (e.Button == MouseButtons.Left && NoToolStripMenuItem.Checked == false)
             {
                 // add a new clone of the image to the stack
                 undoStack.Push((Image)PictureBox1.Image.Clone());
@@ -412,7 +406,7 @@ namespace SnipIt
                         inp.Title = "Text Entry";
                         inp.Prompt = "Enter text to add:";
 
-                        if (inp.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        if (inp.ShowDialog() == DialogResult.OK)
                         {
                             if (!string.IsNullOrEmpty(inp.Entry))
                             {
@@ -601,9 +595,7 @@ namespace SnipIt
             // reset the checked value of all menu items
             foreach (ToolStripItem item in ctxmenuEdit.Items)
             {
-                ToolStripMenuItem menuItem = item as ToolStripMenuItem;
-
-                if (menuItem != null)
+                if (item is ToolStripMenuItem menuItem)
                 {
                     if (menuItem.HasDropDownItems)
                     {
@@ -630,9 +622,7 @@ namespace SnipIt
                 }
                 else
                 {
-                    ToolStripMenuItem menuItem = dropDown as ToolStripMenuItem;
-
-                    if (menuItem != null)
+                    if (dropDown is ToolStripMenuItem menuItem)
                     {
                         menuItem.Checked = false;
                     }
@@ -684,7 +674,7 @@ namespace SnipIt
             FontDialog1.ShowColor = true;
             FontDialog1.Font = drawingFont;
 
-            if (FontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (FontDialog1.ShowDialog() == DialogResult.OK)
             {
                 drawingFont = FontDialog1.Font;
                 drawingFontColor = FontDialog1.Color;
@@ -718,7 +708,7 @@ namespace SnipIt
                     ofd.Filter = ImageFileFilter;
                     ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
-                    if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) 
+                    if (ofd.ShowDialog() == DialogResult.OK) 
                     {
                         // image file will be locked until ClearAll is called
                         LoadExternalImage(Image.FromFile(ofd.FileName));

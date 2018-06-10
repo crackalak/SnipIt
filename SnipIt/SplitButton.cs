@@ -11,8 +11,7 @@ namespace SnipIt
 
         Rectangle dropDownRectangle;
         bool openMenu = false;
-
-        int dpiScale = 1;
+        readonly int dpiScale = 1;
 
         public SplitButton()
         {
